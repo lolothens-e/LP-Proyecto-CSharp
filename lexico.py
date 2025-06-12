@@ -98,6 +98,9 @@ tokens = (
     'DLLAVE',
     'ICORCH',
     'DCORCH',
+    'LISTA',
+    'VAR_INVALIDO',
+    'GENERICO_INVALIDO',
 
 ) + tuple(reserved.values())
 
@@ -111,19 +114,35 @@ t_ICORCH = r'\['
 t_DCORCH = r'\]'
 
 # Regular expression rules for simple tokens
-def t_VARIABLE(t):
-    r'[_a-zA-Z][_a-zA-Z0-9]+'
-    t.type = reserved.get(t.value,'VARIABLE')
+
+def t_LISTA(t):
+    r'List<[a-zA-Z]+>\s[_a-zA-Z][_a-zA-Z0-9]*'
     return t
     
+def t_GENERICO_INVALIDO(t):
+    r'[_a-zA-Z][_a-zA-Z0-9]*\s*<[^>]*>'
+    print(f"Invalid generic type usage: '{t.value}'")
+    t.lexer.skip(len(t.value))
+    
+def t_VAR_INVALIDO(t):
+    r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
+    print(f"Invalid var usage: '{t.value}'")
+    t.lexer.skip(len(t.value))
+    
+def t_VARIABLE(t):
+    r'[_a-zA-Z][_a-zA-Z0-9]*'
+    t.type = reserved.get(t.value,'VARIABLE')
+    return t
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+
 
 t_ignore  = ' \t' # A string containing ignored characters (spaces and tabs)
 
@@ -134,6 +153,7 @@ data = '''
 hello 
 Lok90Lew 
 _name 
+List<alpha> count
 asd
 asdasd;_aster
 count2
@@ -142,6 +162,9 @@ int
 [[]]
 {{{
 }
+i
+X
+List<String> copy
 '''
 
 # Give the lexer some input
@@ -167,7 +190,7 @@ timestamp = now.strftime("%d-%m-%Y_%Hh%M")
 filename = f"lexico-{username}-{timestamp}.txt"
 
 # Open file for writing
-with open(filename, "w") as file:
+with open("logs/"+filename, "w") as file:
     # Token loop
     while True:
         tok = lexer.token()
