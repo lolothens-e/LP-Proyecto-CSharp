@@ -104,7 +104,7 @@ tokens = (
 
 ) + tuple(reserved.values())
 
-#delimitadores
+#Anthony Navarrete inicio
 t_SENTENCIAFIN = r';'
 t_IPAREN  = r'\('
 t_DPAREN  = r'\)'
@@ -113,7 +113,6 @@ t_DLLAVE = r'\}'
 t_ICORCH = r'\['
 t_DCORCH = r'\]'
 
-# Regular expression rules for simple tokens
 
 def t_LISTA(t):
     r'List<[a-zA-Z]+>\s[_a-zA-Z][_a-zA-Z0-9]*'
@@ -142,7 +141,7 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-
+#Anthony Navarrete fin
 
 t_ignore  = ' \t' # A string containing ignored characters (spaces and tabs)
 
@@ -150,33 +149,26 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-hello 
-Lok90Lew 
-_name 
-List<alpha> count
-asd
-asdasd;_aster
-count2
-int
-(()
-[[]]
-{{{
-}
-i
-X
-List<String> copy
+using System;
+using System.Text.RegularExpressions;
 '''
 
-# Give the lexer some input
+opcion  = input('Escribe la ruta del archivo a analizar o presiona Enter para usar la data cargada en codigo: ')
+if opcion.strip() != '':
+    try:
+        with open(opcion, 'r', encoding='utf-8') as file:
+            data = file.read()
+    except FileNotFoundError:
+        print('No encontramos tu archivo. Usaremos los datos usados en variable data.')
+
+
 lexer.input(data)
 
-# Get user selection and map it to usernames
 username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.Abrahan\n> ")
 while username_input not in ["1", "2", "3"]:
     print("Seleccione usuario valido:")    
     username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.Abrahan\n> ")
 
-# Map input to usernames
 usernames = {
     "1": "lolothens-e",
     "2": "ArielV17",
@@ -184,17 +176,14 @@ usernames = {
 }
 username = usernames[username_input]
 
-# Timestamp and filename
 now = datetime.datetime.now()
 timestamp = now.strftime("%d-%m-%Y_%Hh%M")
 filename = f"lexico-{username}-{timestamp}.txt"
 
-# Open file for writing
 with open("logs/"+filename, "w") as file:
-    # Token loop
     while True:
         tok = lexer.token()
         if not tok:
             break
-        print(tok)                 # print to console
-        file.write(str(tok) + "\n")  # write to file
+        print(tok)                 
+        file.write(str(tok) + "\n")  

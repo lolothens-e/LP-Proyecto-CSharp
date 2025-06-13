@@ -1,0 +1,8 @@
+LexToken(USING,'using',2,1)
+LexToken(VARIABLE,'System',2,7)
+LexToken(SENTENCIAFIN,';',2,13)
+LexToken(USING,'using',3,15)
+LexToken(VARIABLE,'System',3,21)
+LexToken(VARIABLE,'Text',3,28)
+LexToken(VARIABLE,'RegularExpressions',3,33)
+LexToken(SENTENCIAFIN,';',3,51)
