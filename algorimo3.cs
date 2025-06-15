@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+//lacedeno11 algortimo prueba
 class TestDiccionariosYOperadores
 {
     static void Main()
@@ -9,7 +9,7 @@ class TestDiccionariosYOperadores
 
         puntajes.Add("lacedeno11", 100);
         
-        puntajes["ArielV17"] = 95;
+        puntajes["ArielV17"] = 65;
         
         int a = 20;
         int b = 10;
@@ -17,6 +17,7 @@ class TestDiccionariosYOperadores
 
         resultado = a + b * 2;
         resultado++; 
+
 
         a += b; 
         
