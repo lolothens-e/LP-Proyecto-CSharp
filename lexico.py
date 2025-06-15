@@ -101,6 +101,13 @@ tokens = (
     'LISTA',
     'VAR_INVALIDO',
     'GENERICO_INVALIDO',
+    'INT_LITERAL', #Tokens Ariel
+    'FLOAT_LITERAL',
+    'CHAR_LITERAL',
+    'STRING_LITERAL',
+    'BOOL_LITERAL',
+    'ARRAY_DECLARATION',
+    'ARRAY_CREATION', #Fin tokens Ariel
 
 ) + tuple(reserved.values())
 
@@ -187,3 +194,35 @@ with open("logs/"+filename, "w") as file:
             break
         print(tok)                 
         file.write(str(tok) + "\n")  
+
+#Inicio Ariel Villacrés
+def t_INT_LITERAL(t):
+    r'\b\d+\b'
+    return t
+
+def t_FLOAT_LITERAL(t):
+    r'\b\d+\.\d+f\b'
+    return t
+
+def t_CHAR_LITERAL(t):
+    r"'\w'"
+    return t
+
+def t_STRING_LITERAL(t):
+    r'"([^\\"]|\\.)*"'
+    return t
+
+def t_BOOL_LITERAL(t):
+    r'\btrue\b|\bfalse\b'
+    t.type = reserved.get(t.value, 'BOOL_LITERAL')
+    return t
+
+def t_ARRAY_DECLARATION(t):
+    r'\b(?:int|float|bool|string|char)\[\]\s+[_a-zA-Z][_a-zA-Z0-9]*'
+    return t
+
+def t_ARRAY_CREATION(t):
+    r'new\s+(?:int|float|bool|string|char)\s*\[\s*\d+\s*\]'
+    return t
+
+#Fin Ariel Villacrés
