@@ -89,7 +89,6 @@ reserved = {
 }
 
 
-# List of token names.   This is always required
 tokens = (
     'VARIABLE',
     'SENTENCIAFIN',
@@ -226,7 +225,7 @@ def t_ARRAY_CREATION(t):
 
 #Fin Ariel Villacrés
 
-t_ignore  = ' \t' # A string containing ignored characters (spaces and tabs)
+t_ignore  = ' \t' 
 
 lexer = lex.lex()
 
@@ -234,6 +233,24 @@ lexer = lex.lex()
 data = '''
 using System;
 using System.Text.RegularExpressions;
+
+class RegexTokenizerTest
+{
+    static void Main()
+    {
+        string input = "int value = 42; // This is a comment";
+        string pattern = "\w+|[=;]|\S"; // Match words, operators, symbols
+
+        MatchCollection matches = Regex.Matches(input, pattern);
+
+        Console.WriteLine("Tokens:");
+        foreach (Match match in matches)
+        {
+            Console.WriteLine($"[{match.Value}]");
+        }
+    }
+}
+
 '''
 
 opcion  = input('Escribe la ruta del archivo a analizar o presiona Enter para usar la data cargada en codigo: ')
@@ -270,3 +287,6 @@ with open("logs/"+filename, "w") as file:
             break
         print(tok)                 
         file.write(str(tok) + "\n")  
+
+file.close()
+
