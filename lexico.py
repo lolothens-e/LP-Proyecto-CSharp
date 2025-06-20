@@ -1,4 +1,4 @@
-import ply.lex as lex,  datetime, os
+import ply.lex as lex,  datetime
 
 
 reserved = {
@@ -85,12 +85,14 @@ reserved = {
     'fixed': 'FIXED',
     'extern': 'EXTERN',
     'operator': 'OPERATOR',
+    'Console':'CONSOLE',
+    'WriteLine':'WRITELINE',
     'Dictionary': 'DICTIONARY'#lacedeno11
 }
 
 
 tokens = (
-    'VARIABLE',
+    'IDENTIFICADOR',
     'SENTENCIAFIN',
     'IPAREN',
     'DPAREN',
@@ -99,7 +101,7 @@ tokens = (
     'ICORCH',
     'DCORCH',
     'LISTA',
-    'VAR_INVALIDO',
+    'ID_INVALIDO',
     'GENERICO_INVALIDO',
     'INT_LITERAL', #Tokens Ariel
     'FLOAT_LITERAL',
@@ -122,11 +124,13 @@ tokens = (
     # Otros símbolos
     'PUNTO', 'COMA',
     #lacedeno11  fin
+    'CONSOLE', "WRITELINE"
 
 ) + tuple(reserved.values())
 
 #Anthony Navarrete inicio
 t_SENTENCIAFIN = r';'
+
 t_IPAREN  = r'\('
 t_DPAREN  = r'\)'
 t_ILLAVE = r'\{'
@@ -144,14 +148,14 @@ def t_GENERICO_INVALIDO(t):
     print(f"Invalid generic type usage: '{t.value}'")
     t.lexer.skip(len(t.value))
     
-def t_VAR_INVALIDO(t):
+def t_ID_INVALIDO(t):
     r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
     print(f"Invalid var usage: '{t.value}'")
     t.lexer.skip(len(t.value))
     
-def t_VARIABLE(t):
+def t_IDENTIFICADOR(t):
     r'[_a-zA-Z][_a-zA-Z0-9]*'
-    t.type = reserved.get(t.value,'VARIABLE')
+    t.type = reserved.get(t.value,'IDENTIFICADOR')
     return t
 
 def t_newline(t):
@@ -252,41 +256,41 @@ class RegexTokenizerTest
 }
 
 '''
+def lexico():
+    opcion  = input('Escribe la ruta del archivo a analizar o presiona Enter para usar la data cargada en codigo: ')
+    if opcion.strip() != '':
+        try:
+            with open(opcion, 'r', encoding='utf-8') as file:
+                data = file.read()
+        except FileNotFoundError:
+            print('No encontramos tu archivo. Usaremos los datos usados en variable data.')
 
-opcion  = input('Escribe la ruta del archivo a analizar o presiona Enter para usar la data cargada en codigo: ')
-if opcion.strip() != '':
-    try:
-        with open(opcion, 'r', encoding='utf-8') as file:
-            data = file.read()
-    except FileNotFoundError:
-        print('No encontramos tu archivo. Usaremos los datos usados en variable data.')
 
+    lexer.input(data)
 
-lexer.input(data)
-
-username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
-while username_input not in ["1", "2", "3"]:
-    print("Seleccione usuario valido:")    
     username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
+    while username_input not in ["1", "2", "3"]:
+        print("Seleccione usuario valido:")    
+        username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
 
-usernames = {
-    "1": "lolothens-e",
-    "2": "ArielV17",
-    "3": "lacedeno11"
-}
-username = usernames[username_input]
+    usernames = {
+        "1": "lolothens-e",
+        "2": "ArielV17",
+        "3": "lacedeno11"
+    }
+    username = usernames[username_input]
 
-now = datetime.datetime.now()
-timestamp = now.strftime("%d-%m-%Y_%Hh%M")
-filename = f"lexico-{username}-{timestamp}.txt"
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%d-%m-%Y_%Hh%M")
+    filename = f"lexico-{username}-{timestamp}.txt"
 
-with open("logs/"+filename, "w") as file:
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break
-        print(tok)                 
-        file.write(str(tok) + "\n")  
+    with open("logs/"+filename, "w") as file:
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
+            print(tok)                 
+            file.write(str(tok) + "\n")  
 
-file.close()
+    file.close()
 

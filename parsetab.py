@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ABSTRACT ADD AND ARRAY_CREATION ARRAY_DECLARATION AS ASIGNAR BASE BOOL BOOL_LITERAL BREAK BYTE CASE CATCH CHAR CHAR_LITERAL CHECKED CLASS COMA CONST CONTINUE DCORCH DECIMAL DECREMENTO DEFAULT DELEGATE DICTIONARY DIFERENTE DIVIDIR DIVIDIRIGUAL DLLAVE DO DOUBLE DPAREN DYNAMIC ELSE ENUM EVENT EXTERN FALSE FINALLY FIXED FLECHALAMBDA FLOAT FLOAT_LITERAL FOR FOREACH GENERICO_INVALIDO GET GOTO ICORCH IF IGUAL ILLAVE IN INCREMENTO INT INTERFACE INTERNAL INT_LITERAL IPAREN IS LISTA LOCK LONG MAS MASIGUAL MAYOR MAYORIGUAL MENOR MENORIGUAL MENOS MENOSIGUAL MODULO NAMESPACE NEW NOT NULL OBJECT OPERATOR OR OUT OVERRIDE PARAMS PARTIAL POR PORIGUAL PRIVATE PROTECTED PUBLIC PUNTO READONLY REF REMOVE RETURN SBYTE SEALED SENTENCIAFIN SET SHORT SIZEOF STACKALLOC STATIC STRING STRING_LITERAL STRUCT SWITCH THIS THROW TRUE TRY TYPEOF UINT ULONG UNCHECKED UNSAFE USHORT USING VAR VARIABLE VAR_INVALIDO VIRTUAL VOID VOLATILE WHILE YIELDcuerpo : linea \n            | linea cuerpo\n    linea : expression SENTENCIAFIN\n        | assignment SENTENCIAFIN expression : expression MAS termexpression : expression MENOS termexpression : termterm : term POR factorterm : term DIVIDIR factorterm : factorfactor : INT_LITERAL\n                | FLOAT_LITERAL\n    factor : IPAREN expression DPAREN\n    valor : LISTA \n            | INT_LITERAL \n            | FLOAT_LITERAL \n            | CHAR_LITERAL\n            | STRING_LITERAL \n            | BOOL_LITERAL \n    \n    assignment : VARIABLE ASIGNAR valor\n    '
+_lr_signature = 'ABSTRACT ADD AND ARRAY_CREATION ARRAY_DECLARATION AS ASIGNAR BASE BOOL BOOL_LITERAL BREAK BYTE CASE CATCH CHAR CHAR_LITERAL CHECKED CLASS COMA CONSOLE CONSOLE CONST CONTINUE DCORCH DECIMAL DECREMENTO DEFAULT DELEGATE DICTIONARY DIFERENTE DIVIDIR DIVIDIRIGUAL DLLAVE DO DOUBLE DPAREN DYNAMIC ELSE ENUM EVENT EXTERN FALSE FINALLY FIXED FLECHALAMBDA FLOAT FLOAT_LITERAL FOR FOREACH GENERICO_INVALIDO GET GOTO ICORCH IDENTIFICADOR ID_INVALIDO IF IGUAL ILLAVE IN INCREMENTO INT INTERFACE INTERNAL INT_LITERAL IPAREN IS LISTA LOCK LONG MAS MASIGUAL MAYOR MAYORIGUAL MENOR MENORIGUAL MENOS MENOSIGUAL MODULO NAMESPACE NEW NOT NULL OBJECT OPERATOR OR OUT OVERRIDE PARAMS PARTIAL POR PORIGUAL PRIVATE PROTECTED PUBLIC PUNTO READONLY REF REMOVE RETURN SBYTE SEALED SENTENCIAFIN SET SHORT SIZEOF STACKALLOC STATIC STRING STRING_LITERAL STRUCT SWITCH THIS THROW TRUE TRY TYPEOF UINT ULONG UNCHECKED UNSAFE USHORT USING VAR VIRTUAL VOID VOLATILE WHILE WRITELINE WRITELINE YIELD\n    impresion : CONSOLE PUNTO WRITELINE IPAREN imprimibles DPAREN SENTENCIAFIN\n    \n        imprimibles : IDENTIFICADOR\n        | BOOL_LITERAL\n        | CHAR_LITERAL\n        | STRING_LITERAL\n        | FLOAT_LITERAL\n        | INT_LITERAL\n    \n    linea : impresion \n    \n    cuerpo : linea\n    | linea cuerpo\n    '
     
-_lr_action_items = {'VARIABLE':([0,2,12,15,],[6,6,-3,-4,]),'INT_LITERAL':([0,2,10,12,13,14,15,16,17,18,],[8,8,8,-3,8,8,-4,8,8,26,]),'FLOAT_LITERAL':([0,2,10,12,13,14,15,16,17,18,],[9,9,9,-3,9,9,-4,9,9,27,]),'IPAREN':([0,2,10,12,13,14,15,16,17,],[10,10,10,-3,10,10,-4,10,10,]),'$end':([1,2,11,12,15,],[0,-1,-2,-3,-4,]),'SENTENCIAFIN':([3,4,5,7,8,9,20,21,22,23,24,25,26,27,28,29,30,31,],[12,15,-7,-10,-11,-12,-5,-6,-8,-9,-20,-14,-15,-16,-17,-18,-19,-13,]),'MAS':([3,5,7,8,9,19,20,21,22,23,31,],[13,-7,-10,-11,-12,13,-5,-6,-8,-9,-13,]),'MENOS':([3,5,7,8,9,19,20,21,22,23,31,],[14,-7,-10,-11,-12,14,-5,-6,-8,-9,-13,]),'DPAREN':([5,7,8,9,19,20,21,22,23,31,],[-7,-10,-11,-12,31,-5,-6,-8,-9,-13,]),'POR':([5,7,8,9,20,21,22,23,31,],[16,-10,-11,-12,16,16,-8,-9,-13,]),'DIVIDIR':([5,7,8,9,20,21,22,23,31,],[17,-10,-11,-12,17,17,-8,-9,-13,]),'ASIGNAR':([6,],[18,]),'LISTA':([18,],[25,]),'CHAR_LITERAL':([18,],[28,]),'STRING_LITERAL':([18,],[29,]),'BOOL_LITERAL':([18,],[30,]),}
+_lr_action_items = {'CONSOLE':([0,],[2,]),'$end':([1,14,],[0,-1,]),'PUNTO':([2,],[3,]),'WRITELINE':([3,],[4,]),'IPAREN':([4,],[5,]),'IDENTIFICADOR':([5,],[7,]),'BOOL_LITERAL':([5,],[8,]),'CHAR_LITERAL':([5,],[9,]),'STRING_LITERAL':([5,],[10,]),'FLOAT_LITERAL':([5,],[11,]),'INT_LITERAL':([5,],[12,]),'DPAREN':([6,7,8,9,10,11,12,],[13,-2,-3,-4,-5,-6,-7,]),'SENTENCIAFIN':([13,],[14,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'cuerpo':([0,2,],[1,11,]),'linea':([0,2,],[2,2,]),'expression':([0,2,10,],[3,3,19,]),'assignment':([0,2,],[4,4,]),'term':([0,2,10,13,14,],[5,5,5,20,21,]),'factor':([0,2,10,13,14,16,17,],[7,7,7,7,7,22,23,]),'valor':([18,],[24,]),}
+_lr_goto_items = {'impresion':([0,],[1,]),'imprimibles':([5,],[6,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,25 +26,15 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> cuerpo","S'",1,None,None,None),
-  ('cuerpo -> linea','cuerpo',1,'p_cuerpo','sintactico.py',5),
-  ('cuerpo -> linea cuerpo','cuerpo',2,'p_cuerpo','sintactico.py',6),
-  ('linea -> expression SENTENCIAFIN','linea',2,'p_linea','sintactico.py',9),
-  ('linea -> assignment SENTENCIAFIN','linea',2,'p_linea','sintactico.py',10),
-  ('expression -> expression MAS term','expression',3,'p_expression_plus','sintactico.py',13),
-  ('expression -> expression MENOS term','expression',3,'p_expression_minus','sintactico.py',17),
-  ('expression -> term','expression',1,'p_expression_term','sintactico.py',21),
-  ('term -> term POR factor','term',3,'p_term_times','sintactico.py',25),
-  ('term -> term DIVIDIR factor','term',3,'p_term_div','sintactico.py',29),
-  ('term -> factor','term',1,'p_term_factor','sintactico.py',33),
-  ('factor -> INT_LITERAL','factor',1,'p_factor_num','sintactico.py',37),
-  ('factor -> FLOAT_LITERAL','factor',1,'p_factor_num','sintactico.py',38),
-  ('factor -> IPAREN expression DPAREN','factor',3,'p_factor_expr','sintactico.py',43),
-  ('valor -> LISTA','valor',1,'p_valor','sintactico.py',48),
-  ('valor -> INT_LITERAL','valor',1,'p_valor','sintactico.py',49),
-  ('valor -> FLOAT_LITERAL','valor',1,'p_valor','sintactico.py',50),
-  ('valor -> CHAR_LITERAL','valor',1,'p_valor','sintactico.py',51),
-  ('valor -> STRING_LITERAL','valor',1,'p_valor','sintactico.py',52),
-  ('valor -> BOOL_LITERAL','valor',1,'p_valor','sintactico.py',53),
-  ('assignment -> VARIABLE ASIGNAR valor','assignment',3,'p_assignment','sintactico.py',58),
+  ("S' -> impresion","S'",1,None,None,None),
+  ('impresion -> CONSOLE PUNTO WRITELINE IPAREN imprimibles DPAREN SENTENCIAFIN','impresion',7,'p_impresion','sintactico.py',8),
+  ('imprimibles -> IDENTIFICADOR','imprimibles',1,'p_imprimibles','sintactico.py',12),
+  ('imprimibles -> BOOL_LITERAL','imprimibles',1,'p_imprimibles','sintactico.py',13),
+  ('imprimibles -> CHAR_LITERAL','imprimibles',1,'p_imprimibles','sintactico.py',14),
+  ('imprimibles -> STRING_LITERAL','imprimibles',1,'p_imprimibles','sintactico.py',15),
+  ('imprimibles -> FLOAT_LITERAL','imprimibles',1,'p_imprimibles','sintactico.py',16),
+  ('imprimibles -> INT_LITERAL','imprimibles',1,'p_imprimibles','sintactico.py',17),
+  ('linea -> impresion','linea',1,'p_linea','sintactico.py',22),
+  ('cuerpo -> linea','cuerpo',1,'p_cuerpo','sintactico.py',27),
+  ('cuerpo -> linea cuerpo','cuerpo',2,'p_cuerpo','sintactico.py',28),
 ]
