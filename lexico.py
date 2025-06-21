@@ -85,8 +85,6 @@ reserved = {
     'fixed': 'FIXED',
     'extern': 'EXTERN',
     'operator': 'OPERATOR',
-    'Console':'CONSOLE',
-    'WriteLine':'WRITELINE',
     'Dictionary': 'DICTIONARY'#lacedeno11
 }
 
@@ -143,10 +141,7 @@ def t_LISTA(t):
     r'List<[a-zA-Z]+>\s[_a-zA-Z][_a-zA-Z0-9]*'
     return t
     
-def t_GENERICO_INVALIDO(t):
-    r'[_a-zA-Z][_a-zA-Z0-9]*\s*<[^>]*>'
-    print(f"Invalid generic type usage: '{t.value}'")
-    t.lexer.skip(len(t.value))
+
     
 def t_ID_INVALIDO(t):
     r'[0-9]+[a-zA-Z_][a-zA-Z0-9_]*'
@@ -197,6 +192,23 @@ t_NOT          = r'!'
 t_PUNTO        = r'\.'
 t_COMA         = r','
 #lacedeno11 fin
+
+#INICIO CORRECCIÓN 1: MANEJO DE COMENTARIOS
+
+# Regla para comentarios de múltiples líneas /* ... */
+def t_COMMENT_MULTI(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    pass # No retorna nada, efectivamente ignorando el token
+
+# Regla para comentarios de una sola línea // ...
+def t_COMMENT_SINGLE(t):
+    r'//.*'
+    pass # No retorna nada, ignorando el token
+
+
+#FIN CORRECCIÓN 1
+
 #Inicio Ariel Villacrés
 def t_INT_LITERAL(t):
     r'\b\d+\b'
@@ -294,3 +306,5 @@ def lexico():
 
     file.close()
 
+if __name__ == "__main__":
+    lexico()
