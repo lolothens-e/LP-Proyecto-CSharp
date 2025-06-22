@@ -26,4 +26,17 @@ class TestPrimitivosYArrays
         amigos.Add("Carlos");
         puntajes.Add(100);
     }
+
+    //Prueba sintáctico
+    int edad = 25;
+    float temperatura = 36.6f;
+    string nombre = "Ariel";
+    bool aprobado = true;
+
+    List<string> amigos = new List<string>();
+    int[] notas = new int[3];
+
+    if (edad > 18 && aprobado || nombre == "Ariel") {
+        Console.WriteLine("Estudiante válido");
+    }
 }
