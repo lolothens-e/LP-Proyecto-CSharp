@@ -448,4 +448,56 @@ def p_expresion_condicional(p):
     '''
     p[0] = (p[2], p[1], p[3])
 
+tipos_primitivos = ['int', 'float', 'double', 'bool', 'string', 'char']
+
+def tipo_expresion(expr):
+    if isinstance(expr, str):
+        if expr.isdigit():
+            return 'int'
+        if expr.replace('.', '', 1).isdigit():
+            return 'float'
+        if expr.startswith('"') and expr.endswith('"'):
+            return 'string'
+        if expr.startswith("'") and expr.endswith("'"):
+            return 'char'
+        if expr in ['true', 'false']:
+            return 'bool'
+        return 'variable'
+
+    if isinstance(expr, tuple):
+        operador = expr[0]
+
+        if operador in ['+', '-', '*', '/']:
+            tipo1 = tipo_expresion(expr[1])
+            tipo2 = tipo_expresion(expr[2])
+
+            if tipo1 == 'bool' or tipo2 == 'bool':
+                raise Exception(f"Error: No se pueden usar booleanos en operaciones aritméticas ({tipo1} {operador} {tipo2})")
+
+            if tipo1 == tipo2:
+                return tipo1
+            elif 'float' in [tipo1, tipo2] or 'double' in [tipo1, tipo2]:
+                return 'float'
+            else:
+                raise Exception(f"Tipos incompatibles en operación aritmética: {tipo1} {operador} {tipo2}")
+
+def verificar_asignacion(nodo):
+    if nodo[0] == 'declaracion_asignacion':
+        tipo_destino = nodo[1]
+        valor = nodo[3]
+
+        tipo_valor = tipo_expresion(valor)
+
+        if tipo_destino == tipo_valor:
+            return  # Ok
+
+        # Verifica casos especiales
+        if tipo_destino == 'int' and tipo_valor == 'float':
+            raise Exception(f"Error: No se puede asignar un float a un int sin casting explícito")
+
+        if tipo_destino == 'float' and tipo_valor == 'int':
+            return  # Permitido implícitamente
+
+        raise Exception(f"Error: Asignación incompatible de {tipo_valor} a {tipo_destino}")
+
 #ArielV17 fin
