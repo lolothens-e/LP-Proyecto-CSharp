@@ -268,18 +268,11 @@ class RegexTokenizerTest
 }
 
 '''
+# Tabla de símbolos global
+symbol_table = {}
+
 def lexico():
-    opcion  = input('Escribe la ruta del archivo a analizar o presiona Enter para usar la data cargada en codigo: ')
-    if opcion.strip() != '':
-        try:
-            with open(opcion, 'r', encoding='utf-8') as file:
-                data = file.read()
-        except FileNotFoundError:
-            print('No encontramos tu archivo. Usaremos los datos usados en variable data.')
-
-
-    lexer.input(data)
-
+    # Preguntar usuario
     username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
     while username_input not in ["1", "2", "3"]:
         print("Seleccione usuario valido:")    
@@ -294,17 +287,39 @@ def lexico():
 
     now = datetime.datetime.now()
     timestamp = now.strftime("%d-%m-%Y_%Hh%M")
-    filename = f"lexico-{username}-{timestamp}.txt"
+    filename = f"semantico-{username}-{timestamp}.txt"
+    log_path = "logs/" + filename
+    chat_log = []
 
-    with open("logs/"+filename, "w") as file:
+    print("\nEscribe 'exit' para terminar la sesión.\n")
+    while True:
+        user_input = input("C# > ")
+        chat_log.append(f"C# > {user_input}")
+        if user_input.strip().lower() == "exit":
+            break
+        # Procesar la línea con el lexer
+        lexer.input(user_input)
+        output = []
         while True:
             tok = lexer.token()
             if not tok:
                 break
-            print(tok)                 
-            file.write(str(tok) + "\n")  
-
-    file.close()
+            # Ejemplo: añadir identificadores a la tabla de símbolos
+            if tok.type == 'IDENTIFICADOR':
+                symbol_table[tok.value] = {'type': 'variable', 'lineno': tok.lineno}
+            output.append(str(tok))
+        if output:
+            for line in output:
+                print(line)
+            chat_log.extend(output)
+        else:
+            print("(Sin tokens reconocidos)")
+            chat_log.append("(Sin tokens reconocidos)")
+    # Guardar el chat en logs
+    with open(log_path, "w") as file:
+        for line in chat_log:
+            file.write(line + "\n")
+    print(f"\nSesión guardada en {log_path}")
 
 if __name__ == "__main__":
     lexico()

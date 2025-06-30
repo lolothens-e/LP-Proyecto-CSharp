@@ -1,0 +1,5 @@
+C# > return 15;
+[Error Semántico] Línea 1: 'return' solo puede usarse dentro de una función.
+C# > while(true){break;}
+[Error Semántico] Línea 1: La instrucción 'break' solo puede usarse dentro de un bucle (for, while).
+C# > exit

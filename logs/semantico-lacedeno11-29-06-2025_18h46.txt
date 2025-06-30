@@ -1,0 +1,3 @@
+C# > int obtener(){return 0;}
+[Error Semántico] Línea 1: 'return' solo puede usarse dentro de una función.
+C# > exit

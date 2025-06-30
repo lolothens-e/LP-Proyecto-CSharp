@@ -1,0 +1,3 @@
+C# > void hola(){return 1;}
+[Error Semántico] Línea 1: La función 'hola' es de tipo 'void' y no puede retornar un valor.
+C# > exit

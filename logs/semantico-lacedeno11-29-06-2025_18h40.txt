@@ -1,0 +1,21 @@
+C# > C# > int obtenerNumero() {
+  return 10;
+}
+[Error Semántico] Línea 2: 'return' solo puede usarse dentro de una función.
+C# > Error de sintaxis inesperado al final del archivo (EOF).
+[]
+C# > None
+None
+C# > C# > [Error Semántico] Línea 1: 'return' solo puede usarse dentro de una función.
+[]
+C# > [Error Semántico] Línea 1: 'return' solo puede usarse dentro de una función.
+[]
+C# > C# > Error de sintaxis en el token tipo 'DLLAVE' con valor '}' en la línea 1
+[]
+C# > []
+[]
+C# > C# > exit
+None
+C# > 
+[]
+C# > exit

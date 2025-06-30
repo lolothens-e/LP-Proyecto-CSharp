@@ -1,0 +1,5 @@
+C# > string obtener(){return 1;}
+[Error Semántico] Línea 1: Tipo de retorno inconsistente en la función 'obtener'. Se esperaba 'string' pero se retornó 'int'.
+C# > while(true){break;}
+[Error Semántico] Línea 1: La instrucción 'break' solo puede usarse dentro de un bucle (for, while).
+C# > exit

@@ -17,10 +17,113 @@ precedence = (
     ('right', 'UMINUS'),  # Operador unario para números negativos (ej: -5)
 )
 
+
+#lacedeno11 aporte fin
+symbol_table = {}
+#Lacedeno11 aporte inicio
+
+# --- ESTRUCTURAS PARA EL ANÁLISIS SEMÁNTICO ---
+
+# 1. Contexto: Nos ayuda a saber dónde estamos (dentro de un bucle, función, etc.)
+semantic_context = {
+    'dentro_de_bucle': 0,
+    'funcion_actual': None # Guardará el nombre de la función que se está analizando
+}
+
+# 2. Lista de Errores: Acumularemos todos los errores semánticos aquí.
+errores_semanticos = []
+
+# --- FUNCIONES AUXILIARES PARA SEMÁNTICA ---
+
+def registrar_error_semantico(mensaje, linea):
+    """Función para registrar y mostrar un error semántico."""
+    error = f"[Error Semántico] Línea {linea}: {mensaje}"
+    print(error)
+    errores_semanticos.append(error)
+
+def get_expression_type(node):
+    """
+    Determina el tipo de una expresión. Es una función clave.
+    Recibe un nodo del AST (o un valor simple) y devuelve su tipo como string.
+    """
+    # Si es un literal, determinamos el tipo directamente
+    if isinstance(node, int): return 'int'
+    if isinstance(node, float): return 'float'
+    if isinstance(node, str):
+        if node == 'true' or node == 'false': return 'bool'
+        if node.startswith('"') and node.endswith('"'): return 'string'
+
+    # Si es un identificador (una variable), lo buscamos en la tabla de símbolos
+    if isinstance(node, str) and node in symbol_table:
+        # Asegurarse de que el identificador es una variable y no una función
+        if symbol_table[node].get('type') != 'function':
+            return symbol_table[node].get('type')
+
+    # Si es una operación, determinamos el tipo resultante
+    if isinstance(node, tuple):
+        op = node[0]
+        # Para operaciones aritméticas, por ahora asumimos que el tipo del primer operando domina
+        if op in ('+', '-', '*', '/', '%'):
+            return get_expression_type(node[1])
+        # Para operaciones lógicas y de comparación, el resultado es siempre booleano
+        if op in ('<', '>', '<=', '>=', '==', '!=', '&&', '||', '!'):
+            return 'bool'
+
+    return 'desconocido' # Si no se puede determinar
+
+
+# --- REGLA PARA RETURN ---
+# AÑADE ESTA NUEVA FUNCIÓN
+def p_instruccion_return(p):
+    'instruccion_return : RETURN expresion'
+    
+    # --- SEMÁNTICA: Validar el tipo de retorno ---
+    funcion_actual = semantic_context['funcion_actual']
+    if funcion_actual is None:
+        registrar_error_semantico("'return' solo puede usarse dentro de una función.", p.lineno(1))
+    else:
+        # Se comprueba si la función existe en la tabla de símbolos para evitar errores
+        if funcion_actual in symbol_table:
+            tipo_esperado = symbol_table[funcion_actual]['return_type']
+            tipo_retornado = get_expression_type(p[2])
+            
+            if tipo_esperado == 'void':
+                 registrar_error_semantico(f"La función '{funcion_actual}' es de tipo 'void' y no puede retornar un valor.", p.lineno(1))
+            elif tipo_esperado != tipo_retornado and tipo_retornado != 'desconocido':
+                mensaje = f"Tipo de retorno inconsistente en la función '{funcion_actual}'. Se esperaba '{tipo_esperado}' pero se retornó '{tipo_retornado}'."
+                registrar_error_semantico(mensaje, p.lineno(1))
+
+    p[0] = ('return', p[2])
+
+
+# --- REGLA PARA BREAK  ---
+# AÑADE ESTA NUEVA FUNCIÓN
+def p_instruccion_break(p):
+    'instruccion_break : BREAK'
+
+    if semantic_context['dentro_de_bucle'] == 0:
+        registrar_error_semantico("La instrucción 'break' solo puede usarse dentro de un bucle (for, while).", p.lineno(1))
+
+    p[0] = ('break',)
+
+# --- REGLAS PARA BUCLES (CON SEMÁNTICA PARA 'BREAK') ---
+
+def p_while_loop(p):
+    'while_loop : WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo'
+    semantic_context['dentro_de_bucle'] -= 1
+    p[0] = ('while', p[3], p[6])
+
+def p_for_loop(p):
+    'for_loop : FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo'
+    semantic_context['dentro_de_bucle'] -= 1
+    p[0] = ('for', p[3], p[5], p[7], p[10])
+
+def p_enter_loop_scope(p):
+    "enter_loop_scope :"
+    semantic_context['dentro_de_bucle'] += 1
 #lacedeno11 aporte fin
 
 start = 'programa'
-
 def p_impresion(p):
     '''
     impresion : CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN
@@ -62,15 +165,36 @@ def p_sentencia(p):
               | asignacion SENTENCIAFIN
               | impresion SENTENCIAFIN
               | if_statement
+              | while_loop
+              | for_loop
+              | instruccion_break SENTENCIAFIN   
+              | instruccion_return SENTENCIAFIN
     '''
     p[0] = p[1]
 
-# --- REGLAS PARA FUNCIONES ---
 def p_definicion_funcion(p):
-    'definicion_funcion : tipo_retorno IDENTIFICADOR IPAREN DPAREN bloque_codigo'
-    # Simplificado: sin parámetros. Se pueden añadir más adelante.
-    p[0] = ('def_funcion', p[1], p[2], p[5])
+    'definicion_funcion : tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo'
+    # Esta regla ahora es más simple. Su único trabajo semántico es limpiar el contexto
+    # después de que toda la función ha sido analizada.
+    semantic_context['funcion_actual'] = None 
+    p[0] = ('def_funcion', p[1], p[2], p[6]) # p[6] es el bloque_codigo
 
+def p_enter_function_scope(p):
+    "enter_function_scope :"
+    # Esta regla "invisible" se ejecuta ANTES de analizar el bloque de la función.
+    # Nos permite establecer el contexto en el momento correcto.
+    # Accedemos a los tokens anteriores (nombre y tipo) usando índices negativos.
+    nombre_func = p[-3]
+    tipo_retorno = p[-4]
+
+    # Registra la función en la tabla de símbolos
+    if nombre_func in symbol_table:
+        registrar_error_semantico(f"La función '{nombre_func}' ya ha sido definida.", p.lineno(-3))
+    else:
+        symbol_table[nombre_func] = {'type': 'function', 'return_type': tipo_retorno}
+
+    # Establece el contexto actual, que será usado por 'p_instruccion_return'
+    semantic_context['funcion_actual'] = nombre_func
 def p_bloque_codigo(p):
     'bloque_codigo : ILLAVE lista_sentencias DLLAVE'
     p[0] = ('bloque', p[2]) # El valor del bloque es la lista de sentencias que contiene
@@ -141,7 +265,15 @@ def p_expresion_base(p):
               | TRUE
               | FALSE
     '''
-    p[0] = p[1]
+    # Se convierte el valor del token al tipo de dato correcto de Python
+    if p.slice[1].type == 'INT_LITERAL':
+        p[0] = int(p[1])
+    elif p.slice[1].type == 'FLOAT_LITERAL':
+        # El lexer captura la 'f' al final, la quitamos para convertir a float
+        p[0] = float(p[1][:-1])
+    else:
+        # Los demás tokens (strings, identificadores, booleanos) se mantienen como texto
+        p[0] = p[1]
 
 # --- REGLA PARA ELEMENTOS OPCIONALES (VACÍOS) ---
 # Necesaria para listas de sentencias vacías en un bloque de código.
@@ -152,53 +284,73 @@ def p_empty(p):
 #lacedeno11 aporte fin
 from lexico import lexer
 
-username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
-while username_input not in ["1", "2", "3"]:
-    print("Seleccione un usuario válido:")    
+# --- MODO INTERACTIVO ---
+def main():
     username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
+    while username_input not in ["1", "2", "3"]:
+        print("Seleccione un usuario válido:")    
+        username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
 
-usernames = {
-    "1": "lolothens-e",
-    "2": "ArielV17",
-    "3": "lacedeno11"
-}
-username = usernames[username_input]
+    usernames = {
+        "1": "lolothens-e",
+        "2": "ArielV17",
+        "3": "lacedeno11"
+    }
+    username = usernames[username_input]
 
-ruta_archivo = input('Escribe la ruta del archivo a analizar y presiona Enter: ')
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%d-%m-%Y_%Hh%M")
+    log_filename = f"semantico-{username}-{timestamp}.txt"
+    log_path = "logs/" + log_filename
+    chat_log = []
 
-parser = yacc.yacc()
-
-try:
-    with open(ruta_archivo, 'r', encoding='utf-8') as file:
-        data = file.read()
-        print(f"\n--- Analizando el archivo: {ruta_archivo} ---")
-        
-        result = parser.parse(data, lexer=lexer)
-        
-        print("\n--- Resultado del Análisis Sintáctico (AST) ---")
-        print(result)
-        
-        now = datetime.datetime.now()
-        timestamp = now.strftime("%d-%m-%Y_%Hh%M")
-        log_filename = f"sintactico-{username}-{timestamp}.txt"
-
-        import os
-        if not os.path.exists("logs"):
-            os.makedirs("logs")
-        
-        with open("logs/" + log_filename, "w", encoding='utf-8') as log_file:
-            if result:
-                log_file.write(str(result))
+    parser = yacc.yacc()
+    print("\nEscribe 'exit' para terminar la sesión.\nPuedes escribir bloques multilínea, termina con llaves balanceadas.\n")
+    while True:
+        user_lines = []
+        open_braces = 0
+        close_braces = 0
+        while True:
+            prompt = "C# > " if not user_lines else "... "
+            user_input = input(prompt)
+            if not user_lines and user_input.strip().lower() == "exit":
+                chat_log.append("C# > exit")
+                break
+            user_lines.append(user_input)
+            open_braces += user_input.count('{')
+            close_braces += user_input.count('}')
+            if open_braces > 0 and open_braces == close_braces:
+                break
+            if open_braces == 0:
+                break
+        if not user_lines:
+            break
+        code_block = '\n'.join(user_lines)
+        chat_log.append(f"C# > {code_block}")
+        try:
+            result = parser.parse(code_block, lexer=lexer)
+            if errores_semanticos:
+                for err in errores_semanticos:
+                    print(err)
+                    chat_log.append(err)
+                errores_semanticos.clear()
             else:
-                log_file.write("El análisis no produjo resultados (posiblemente por errores de sintaxis).")
+                print(result)
+                chat_log.append(str(result))
+        except Exception as e:
+            error_msg = f"[Error] {e}"
+            print(error_msg)
+            chat_log.append(error_msg)
+        if user_lines and user_lines[0].strip().lower() == "exit":
+            break
+    # Guardar el chat en logs
+    with open(log_path, "w", encoding='utf-8') as file:
+        for line in chat_log:
+            file.write(line + "\n")
+    print(f"\nSesión guardada en {log_path}")
 
-        print(f"\nAnálisis completado. Resultado guardado en 'logs/{log_filename}'")
-
-except FileNotFoundError:
-    print(f"\nError Crítico: No se pudo encontrar el archivo en la ruta '{ruta_archivo}'.")
-    print("Por favor, verifica que la ruta sea correcta y vuelve a intentarlo.")
-except Exception as e:
-    print(f"\nOcurrió un error inesperado durante el análisis: {e}")
+if __name__ == "__main__":
+    main()
 
 #ArielV17 inicio
 

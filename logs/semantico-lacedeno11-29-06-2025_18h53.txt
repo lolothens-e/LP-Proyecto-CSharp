@@ -1,0 +1,3 @@
+C# > int obtener(){return "a";}
+[Error Semántico] Línea 1: Tipo de retorno inconsistente en la función 'obtener'. Se esperaba 'int' pero se retornó 'string'.
+C# > exit

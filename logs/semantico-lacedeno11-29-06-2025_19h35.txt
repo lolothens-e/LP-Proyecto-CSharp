@@ -1,0 +1,5 @@
+C# > int i=0;
+[('declaracion_asignacion', 'int', 'i', 0)]
+C# > for(i=0; i<1; i=i+1) { break; }
+[('for', ('reasignacion', 'i', 0), ('<', 'i', 1), ('reasignacion', 'i', ('+', 'i', 1)), ('bloque', [('break',)]))]
+C# > exit
