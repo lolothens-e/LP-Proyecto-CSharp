@@ -38,38 +38,35 @@ errores_semanticos = []
 def registrar_error_semantico(mensaje, linea):
     """Función para registrar y mostrar un error semántico."""
     error = f"[Error Semántico] Línea {linea}: {mensaje}"
-    print(error)
     errores_semanticos.append(error)
 
 def get_expression_type(node):
-    """
-    Determina el tipo de una expresión. Es una función clave.
-    Recibe un nodo del AST (o un valor simple) y devuelve su tipo como string.
-    """
-    # Si es un literal, determinamos el tipo directamente
     if isinstance(node, int): return 'int'
     if isinstance(node, float): return 'float'
     if isinstance(node, str):
         if node == 'true' or node == 'false': return 'bool'
         if node.startswith('"') and node.endswith('"'): return 'string'
-
-    # Si es un identificador (una variable), lo buscamos en la tabla de símbolos
-    if isinstance(node, str) and node in symbol_table:
-        # Asegurarse de que el identificador es una variable y no una función
-        if symbol_table[node].get('type') != 'function':
-            return symbol_table[node].get('type')
-
-    # Si es una operación, determinamos el tipo resultante
+        if node in symbol_table:
+            if symbol_table[node].get('type') != 'function':
+                return symbol_table[node].get('type')
+            else:
+                return 'desconocido'
+        else:
+            registrar_error_semantico(f"La variable '{node}' no ha sido declarada.", 0)
+            return 'desconocido'
     if isinstance(node, tuple):
         op = node[0]
-        # Para operaciones aritméticas, por ahora asumimos que el tipo del primer operando domina
         if op in ('+', '-', '*', '/', '%'):
             return get_expression_type(node[1])
-        # Para operaciones lógicas y de comparación, el resultado es siempre booleano
         if op in ('<', '>', '<=', '>=', '==', '!=', '&&', '||', '!'):
             return 'bool'
-
-    return 'desconocido' # Si no se puede determinar
+        if op == 'nueva_lista':
+            tipo_interno = node[1].split('<')[1].rstrip('>')
+            return f"List<{tipo_interno}>"
+        if op == 'nuevo_array':
+            tipo_array = node[1].split()[1]
+            return f"{tipo_array}[]"
+        return 'desconocido'
 
 
 # --- REGLA PARA RETURN ---
@@ -139,17 +136,16 @@ def p_programa(p):
     'programa : lista_sentencias'
     p[0] = p[1]
 
-# Una lista de sentencias puede ser una sentencia seguida de más sentencias, o estar vacía.
 def p_lista_sentencias(p):
     '''
     lista_sentencias : lista_sentencias sentencia
                      | empty
     '''
-    # La lógica de construcción de la lista también cambia ligeramente
     if len(p) == 3:
-        p[0] = p[1] + [p[2]] # Añade la nueva sentencia al final de la lista existente
+        p[0] = p[1] + [p[2]]
     else:
-        p[0] = [] # La lista empieza vacía
+        p[0] = [] 
+        
 def p_error(p):
     if p:
         print(f"Error de sintaxis en el token tipo '{p.type}' con valor '{p.value}' en la línea {p.lineno}")
@@ -210,9 +206,34 @@ def p_asignacion(p):
                | IDENTIFICADOR ASIGNAR expresion
     '''
     if len(p) == 5:
-        p[0] = ('declaracion_asignacion', p[1], p[2], p[4])
+        tipo = p[1]
+        nombre = p[2]
+        valor = p[4]
+
+        tipo_valor = get_expression_type(valor)
+        if tipo != tipo_valor and tipo_valor != 'desconocido':
+            registrar_error_semantico(f"Tipo incompatible: se esperaba '{tipo}' pero se asignó '{tipo_valor}'.", p.lineno(3))
+
+        if nombre in symbol_table:
+            registrar_error_semantico(f"La variable '{nombre}' ya fue declarada.", p.lineno(2))
+        else:
+            symbol_table[nombre] = {'type': tipo}
+
+        p[0] = ('declaracion_asignacion', tipo, nombre, valor)
     else:
-        p[0] = ('reasignacion', p[1], p[3])
+        nombre = p[1]
+        valor = p[3]
+
+        if nombre not in symbol_table:
+            registrar_error_semantico(f"La variable '{nombre}' no ha sido declarada1.", p.lineno(1))
+        else:
+            tipo_esperado = symbol_table[nombre]['type']
+            tipo_valor = get_expression_type(valor)
+
+            if tipo_esperado != tipo_valor and tipo_valor != 'desconocido':
+                registrar_error_semantico(f"Tipo incompatible: la variable '{nombre}' es de tipo '{tipo_esperado}' pero se asignó '{tipo_valor}'.", p.lineno(2))
+
+        p[0] = ('reasignacion', nombre, valor)
         
 def p_tipo_retorno(p):
     '''tipo_retorno : INT
@@ -354,21 +375,44 @@ if __name__ == "__main__":
 
 #ArielV17 inicio
 
-# --- Asignación con tipos primitivos, listas y arrays ---
 def p_asignacion_compleja(p):
     '''
     asignacion : tipo_retorno IDENTIFICADOR ASIGNAR expresion
                | tipo_lista IDENTIFICADOR ASIGNAR expresion_lista
                | tipo_array IDENTIFICADOR ASIGNAR expresion_array
     '''
-    p[0] = ('asignacion_compleja', p[1], p[2], p[4])
+    tipo = p[1]
+    nombre = p[2]
+    valor = p[4]
+
+    if nombre in symbol_table:
+        registrar_error_semantico(f"La variable '{nombre}' ya fue declarada.", p.lineno(2))
+    else:
+        if isinstance(valor, tuple) and valor[0] == 'nueva_lista':
+            tipo_valor = f"List<{valor[1].split('<')[1].rstrip('>')}>"
+        elif isinstance(valor, tuple) and valor[0] == 'nuevo_array':
+            tipo_valor = valor[1].split()[1] + '[]'
+        else:
+            tipo_valor = get_expression_type(valor)
+
+        if tipo != tipo_valor and tipo_valor != 'desconocido':
+            registrar_error_semantico(
+                f"Tipo incompatible: se esperaba '{tipo}' pero se asignó '{tipo_valor}'.",
+                p.lineno(3)
+            )
+
+        symbol_table[nombre] = {'type': tipo}
+
+    p[0] = ('asignacion_compleja', tipo, nombre, valor)
 
 # --- Tipos compuestos ---
 def p_tipo_lista(p):
     '''
     tipo_lista : LISTA
     '''
-    p[0] = p[1]
+    tipo_raw = p[1]
+    tipo_solo = tipo_raw.split()[0]  # De "List<int> numeros" => "List<int>"
+    p[0] = tipo_solo
 
 def p_tipo_array(p):
     '''

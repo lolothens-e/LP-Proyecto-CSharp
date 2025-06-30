@@ -136,6 +136,9 @@ t_DLLAVE = r'\}'
 t_ICORCH = r'\['
 t_DCORCH = r'\]'
 
+def t_ARRAY_DECLARATION(t):
+    r'\b(?:int|float|bool|string|char)\[\]\s+[_a-zA-Z][_a-zA-Z0-9]*'
+    return t
 
 def t_LISTA(t):
     r'List<[a-zA-Z]+>\s[_a-zA-Z][_a-zA-Z0-9]*'
@@ -231,9 +234,7 @@ def t_BOOL_LITERAL(t):
     t.type = reserved.get(t.value, 'BOOL_LITERAL')
     return t
 
-def t_ARRAY_DECLARATION(t):
-    r'\b(?:int|float|bool|string|char)\[\]\s+[_a-zA-Z][_a-zA-Z0-9]*'
-    return t
+
 
 def t_ARRAY_CREATION(t):
     r'new\s+(?:int|float|bool|string|char)\s*\[\s*\d+\s*\]'
