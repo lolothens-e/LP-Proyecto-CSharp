@@ -1,5 +1,5 @@
 import ply.yacc as yacc, datetime
-from lexico import tokens
+from my_app.logic.lexico import tokens
 
 #lacedeno11 aporte inicio
 
@@ -303,8 +303,15 @@ def p_empty(p):
     pass
 
 #lacedeno11 aporte fin
-from lexico import lexer
-
+from my_app.logic.lexico import lexer
+parser = yacc.yacc()
+def syntaxGUI(input):
+    output=[]
+    while input is not '':
+        result = parser.parse(input)
+        output.append(result + "\n")
+        
+    return output
 # --- MODO INTERACTIVO ---
 def main():
     username_input = input("Quien esta probando el analizador? \n 1.lolothens-e \n 2.ArielV17 \n 3.lacedeno11\n> ")
@@ -325,7 +332,6 @@ def main():
     log_path = "logs/" + log_filename
     chat_log = []
 
-    parser = yacc.yacc()
     print("\nEscribe 'exit' para terminar la sesión.\nPuedes escribir bloques multilínea, termina con llaves balanceadas.\n")
     while True:
         user_lines = []

@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#14191f] dark group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3">
+          <div class="flex items-center gap-4 text-white">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]"> Lenguajes de Programacion - Proyecto Parcial</h2>
+          </div>
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#293542] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+          >
+            <span class="truncate">Grupo 11: C#</span>
+          </button>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-white tracking-light text-[32px] font-bold leading-tight">C# Syntax Checker</p>
+                <p class="text-[#9badc0] text-sm font-normal leading-normal">
+                  Paste your C# code below to check for syntax errors. Our tool performs lexical, syntax, and semantic analysis to ensure your code is error-free.
+                </p>
+              </div>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <textarea
+                  placeholder="Enter your C# code here..."
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#3b4c5e] bg-[#1d262f] focus:border-[#3b4c5e] min-h-36 placeholder:text-[#9badc0] p-[15px] text-base font-normal leading-normal"
+                ></textarea>
+              </label>
+            </div>
+            <div class="flex px-4 py-3 justify-end">
+              <button
+                id="btn-Check" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#d2e2f3] text-[#14191f] text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <span class="truncate">Check Syntax</span>
+              </button>
+            </div>
+            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Results</h2>
+            <div class="flex items-center gap-4 bg-[#14191f] px-4 min-h-14 justify-between">
+              <div class="flex items-center gap-4">
+                <div class="text-white flex items-center justify-center rounded-lg bg-[#293542] shrink-0 size-10" data-icon="Check" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
+                  </svg>
+                </div>
+                <p class="text-white text-base font-normal leading-normal flex-1 truncate">Lexical Analysis</p>
+              </div>
+              <div class="shrink-0"><p class="text-white text-base font-normal leading-normal">-</p></div>
+            </div>
+            <div class="flex items-center gap-4 bg-[#14191f] px-4 min-h-14 justify-between">
+              <div class="flex items-center gap-4">
+                <div class="text-white flex items-center justify-center rounded-lg bg-[#293542] shrink-0 size-10" data-icon="Check" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
+                  </svg>
+                </div>
+                <p class="text-white text-base font-normal leading-normal flex-1 truncate">Syntax Analysis</p>
+              </div>
+              <div class="shrink-0"><p class="text-white text-base font-normal leading-normal">-</p></div>
+            </div>
+            <div class="flex items-center gap-4 bg-[#14191f] px-4 min-h-14 justify-between">
+              <div class="flex items-center gap-4">
+                <div class="text-white flex items-center justify-center rounded-lg bg-[#293542] shrink-0 size-10" data-icon="Check" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
+                  </svg>
+                </div>
+                <p class="text-white text-base font-normal leading-normal flex-1 truncate">Semantic Analysis</p>
+              </div>
+              <div class="shrink-0"><p class="text-white text-base font-normal leading-normal">-</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
