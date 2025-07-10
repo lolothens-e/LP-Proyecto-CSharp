@@ -1,0 +1,3063 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ABSTRACT
+    ADD
+    ARRAY_CREATION
+    ARRAY_DECLARATION
+    AS
+    BASE
+    BOOL_LITERAL
+    BYTE
+    CASE
+    CATCH
+    CHAR
+    CHAR_LITERAL
+    CHECKED
+    CLASS
+    COMA
+    CONST
+    CONTINUE
+    DCORCH
+    DECIMAL
+    DECREMENTO
+    DEFAULT
+    DELEGATE
+    DICTIONARY
+    DIVIDIRIGUAL
+    DO
+    DOUBLE
+    DYNAMIC
+    ELSE
+    ENUM
+    EVENT
+    EXTERN
+    FINALLY
+    FIXED
+    FLECHALAMBDA
+    FOREACH
+    GENERICO_INVALIDO
+    GET
+    GOTO
+    ICORCH
+    ID_INVALIDO
+    IN
+    INCREMENTO
+    INTERFACE
+    INTERNAL
+    IS
+    LISTA
+    LOCK
+    LONG
+    MASIGUAL
+    MENOSIGUAL
+    NAMESPACE
+    NEW
+    NULL
+    OBJECT
+    OPERATOR
+    OUT
+    OVERRIDE
+    PARAMS
+    PARTIAL
+    PORIGUAL
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    READONLY
+    REF
+    REMOVE
+    SBYTE
+    SEALED
+    SET
+    SHORT
+    SIZEOF
+    STACKALLOC
+    STATIC
+    STRUCT
+    SWITCH
+    THIS
+    THROW
+    TRY
+    TYPEOF
+    UINT
+    ULONG
+    UNCHECKED
+    UNSAFE
+    USHORT
+    USING
+    VAR
+    VIRTUAL
+    VOLATILE
+    YIELD
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     instruccion_return -> RETURN expresion
+Rule 2     instruccion_break -> BREAK
+Rule 3     while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo
+Rule 4     for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+Rule 5     enter_loop_scope -> <empty>
+Rule 6     impresion -> CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN
+Rule 7     imprimible -> expresion
+Rule 8     programa -> lista_sentencias
+Rule 9     lista_sentencias -> lista_sentencias sentencia
+Rule 10    lista_sentencias -> empty
+Rule 11    sentencia -> definicion_funcion
+Rule 12    sentencia -> asignacion SENTENCIAFIN
+Rule 13    sentencia -> impresion SENTENCIAFIN
+Rule 14    sentencia -> if_statement
+Rule 15    sentencia -> while_loop
+Rule 16    sentencia -> for_loop
+Rule 17    sentencia -> instruccion_break SENTENCIAFIN
+Rule 18    sentencia -> instruccion_return SENTENCIAFIN
+Rule 19    definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo
+Rule 20    enter_function_scope -> <empty>
+Rule 21    bloque_codigo -> ILLAVE lista_sentencias DLLAVE
+Rule 22    if_statement -> IF IPAREN expresion DPAREN bloque_codigo
+Rule 23    asignacion -> tipo_retorno IDENTIFICADOR ASIGNAR expresion
+Rule 24    asignacion -> IDENTIFICADOR ASIGNAR expresion
+Rule 25    tipo_retorno -> INT
+Rule 26    tipo_retorno -> FLOAT
+Rule 27    tipo_retorno -> STRING
+Rule 28    tipo_retorno -> BOOL
+Rule 29    tipo_retorno -> VOID
+Rule 30    expresion -> expresion MAS expresion
+Rule 31    expresion -> expresion MENOS expresion
+Rule 32    expresion -> expresion POR expresion
+Rule 33    expresion -> expresion DIVIDIR expresion
+Rule 34    expresion -> expresion MODULO expresion
+Rule 35    expresion -> expresion AND expresion
+Rule 36    expresion -> expresion OR expresion
+Rule 37    expresion -> expresion MAYOR expresion
+Rule 38    expresion -> expresion MENOR expresion
+Rule 39    expresion -> expresion MAYORIGUAL expresion
+Rule 40    expresion -> expresion MENORIGUAL expresion
+Rule 41    expresion -> expresion IGUAL expresion
+Rule 42    expresion -> expresion DIFERENTE expresion
+Rule 43    expresion -> NOT expresion
+Rule 44    expresion -> MENOS expresion
+Rule 45    expresion -> IPAREN expresion DPAREN
+Rule 46    expresion -> IDENTIFICADOR
+Rule 47    expresion -> INT_LITERAL
+Rule 48    expresion -> FLOAT_LITERAL
+Rule 49    expresion -> STRING_LITERAL
+Rule 50    expresion -> TRUE
+Rule 51    expresion -> FALSE
+Rule 52    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ABSTRACT             : 
+ADD                  : 
+AND                  : 35
+ARRAY_CREATION       : 
+ARRAY_DECLARATION    : 
+AS                   : 
+ASIGNAR              : 23 24
+BASE                 : 
+BOOL                 : 28
+BOOL_LITERAL         : 
+BREAK                : 2
+BYTE                 : 
+CASE                 : 
+CATCH                : 
+CHAR                 : 
+CHAR_LITERAL         : 
+CHECKED              : 
+CLASS                : 
+COMA                 : 
+CONSOLE              : 6
+CONST                : 
+CONTINUE             : 
+DCORCH               : 
+DECIMAL              : 
+DECREMENTO           : 
+DEFAULT              : 
+DELEGATE             : 
+DICTIONARY           : 
+DIFERENTE            : 42
+DIVIDIR              : 33
+DIVIDIRIGUAL         : 
+DLLAVE               : 21
+DO                   : 
+DOUBLE               : 
+DPAREN               : 3 4 6 19 22 45
+DYNAMIC              : 
+ELSE                 : 
+ENUM                 : 
+EVENT                : 
+EXTERN               : 
+FALSE                : 51
+FINALLY              : 
+FIXED                : 
+FLECHALAMBDA         : 
+FLOAT                : 26
+FLOAT_LITERAL        : 48
+FOR                  : 4
+FOREACH              : 
+GENERICO_INVALIDO    : 
+GET                  : 
+GOTO                 : 
+ICORCH               : 
+IDENTIFICADOR        : 19 23 24 46
+ID_INVALIDO          : 
+IF                   : 22
+IGUAL                : 41
+ILLAVE               : 21
+IN                   : 
+INCREMENTO           : 
+INT                  : 25
+INTERFACE            : 
+INTERNAL             : 
+INT_LITERAL          : 47
+IPAREN               : 3 4 6 19 22 45
+IS                   : 
+LISTA                : 
+LOCK                 : 
+LONG                 : 
+MAS                  : 30
+MASIGUAL             : 
+MAYOR                : 37
+MAYORIGUAL           : 39
+MENOR                : 38
+MENORIGUAL           : 40
+MENOS                : 31 44
+MENOSIGUAL           : 
+MODULO               : 34
+NAMESPACE            : 
+NEW                  : 
+NOT                  : 43
+NULL                 : 
+OBJECT               : 
+OPERATOR             : 
+OR                   : 36
+OUT                  : 
+OVERRIDE             : 
+PARAMS               : 
+PARTIAL              : 
+POR                  : 32
+PORIGUAL             : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+PUNTO                : 6
+READONLY             : 
+REF                  : 
+REMOVE               : 
+RETURN               : 1
+SBYTE                : 
+SEALED               : 
+SENTENCIAFIN         : 4 4 12 13 17 18
+SET                  : 
+SHORT                : 
+SIZEOF               : 
+STACKALLOC           : 
+STATIC               : 
+STRING               : 27
+STRING_LITERAL       : 49
+STRUCT               : 
+SWITCH               : 
+THIS                 : 
+THROW                : 
+TRUE                 : 50
+TRY                  : 
+TYPEOF               : 
+UINT                 : 
+ULONG                : 
+UNCHECKED            : 
+UNSAFE               : 
+USHORT               : 
+USING                : 
+VAR                  : 
+VIRTUAL              : 
+VOID                 : 29
+VOLATILE             : 
+WHILE                : 3
+WRITELINE            : 6
+YIELD                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 4 4 12
+bloque_codigo        : 3 4 19 22
+definicion_funcion   : 11
+empty                : 10
+enter_function_scope : 19
+enter_loop_scope     : 3 4
+expresion            : 1 3 4 7 22 23 24 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 44 45
+for_loop             : 16
+if_statement         : 14
+impresion            : 13
+imprimible           : 6
+instruccion_break    : 17
+instruccion_return   : 18
+lista_sentencias     : 8 9 21
+programa             : 0
+sentencia            : 9
+tipo_retorno         : 19 23
+while_loop           : 15
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (8) programa -> . lista_sentencias
+    (9) lista_sentencias -> . lista_sentencias sentencia
+    (10) lista_sentencias -> . empty
+    (52) empty -> .
+
+    IDENTIFICADOR   reduce using rule 52 (empty -> .)
+    CONSOLE         reduce using rule 52 (empty -> .)
+    IF              reduce using rule 52 (empty -> .)
+    WHILE           reduce using rule 52 (empty -> .)
+    FOR             reduce using rule 52 (empty -> .)
+    BREAK           reduce using rule 52 (empty -> .)
+    RETURN          reduce using rule 52 (empty -> .)
+    INT             reduce using rule 52 (empty -> .)
+    FLOAT           reduce using rule 52 (empty -> .)
+    STRING          reduce using rule 52 (empty -> .)
+    BOOL            reduce using rule 52 (empty -> .)
+    VOID            reduce using rule 52 (empty -> .)
+    $end            reduce using rule 52 (empty -> .)
+
+    programa                       shift and go to state 1
+    lista_sentencias               shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (8) programa -> lista_sentencias .
+    (9) lista_sentencias -> lista_sentencias . sentencia
+    (11) sentencia -> . definicion_funcion
+    (12) sentencia -> . asignacion SENTENCIAFIN
+    (13) sentencia -> . impresion SENTENCIAFIN
+    (14) sentencia -> . if_statement
+    (15) sentencia -> . while_loop
+    (16) sentencia -> . for_loop
+    (17) sentencia -> . instruccion_break SENTENCIAFIN
+    (18) sentencia -> . instruccion_return SENTENCIAFIN
+    (19) definicion_funcion -> . tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo
+    (23) asignacion -> . tipo_retorno IDENTIFICADOR ASIGNAR expresion
+    (24) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (6) impresion -> . CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN
+    (22) if_statement -> . IF IPAREN expresion DPAREN bloque_codigo
+    (3) while_loop -> . WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo
+    (4) for_loop -> . FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+    (2) instruccion_break -> . BREAK
+    (1) instruccion_return -> . RETURN expresion
+    (25) tipo_retorno -> . INT
+    (26) tipo_retorno -> . FLOAT
+    (27) tipo_retorno -> . STRING
+    (28) tipo_retorno -> . BOOL
+    (29) tipo_retorno -> . VOID
+
+    $end            reduce using rule 8 (programa -> lista_sentencias .)
+    IDENTIFICADOR   shift and go to state 14
+    CONSOLE         shift and go to state 15
+    IF              shift and go to state 16
+    WHILE           shift and go to state 17
+    FOR             shift and go to state 18
+    BREAK           shift and go to state 19
+    RETURN          shift and go to state 20
+    INT             shift and go to state 21
+    FLOAT           shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+
+    sentencia                      shift and go to state 4
+    definicion_funcion             shift and go to state 5
+    asignacion                     shift and go to state 6
+    impresion                      shift and go to state 7
+    if_statement                   shift and go to state 8
+    while_loop                     shift and go to state 9
+    for_loop                       shift and go to state 10
+    instruccion_break              shift and go to state 11
+    instruccion_return             shift and go to state 12
+    tipo_retorno                   shift and go to state 13
+
+state 3
+
+    (10) lista_sentencias -> empty .
+
+    IDENTIFICADOR   reduce using rule 10 (lista_sentencias -> empty .)
+    CONSOLE         reduce using rule 10 (lista_sentencias -> empty .)
+    IF              reduce using rule 10 (lista_sentencias -> empty .)
+    WHILE           reduce using rule 10 (lista_sentencias -> empty .)
+    FOR             reduce using rule 10 (lista_sentencias -> empty .)
+    BREAK           reduce using rule 10 (lista_sentencias -> empty .)
+    RETURN          reduce using rule 10 (lista_sentencias -> empty .)
+    INT             reduce using rule 10 (lista_sentencias -> empty .)
+    FLOAT           reduce using rule 10 (lista_sentencias -> empty .)
+    STRING          reduce using rule 10 (lista_sentencias -> empty .)
+    BOOL            reduce using rule 10 (lista_sentencias -> empty .)
+    VOID            reduce using rule 10 (lista_sentencias -> empty .)
+    $end            reduce using rule 10 (lista_sentencias -> empty .)
+    DLLAVE          reduce using rule 10 (lista_sentencias -> empty .)
+
+
+state 4
+
+    (9) lista_sentencias -> lista_sentencias sentencia .
+
+    IDENTIFICADOR   reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    CONSOLE         reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    IF              reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    WHILE           reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    FOR             reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    BREAK           reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    RETURN          reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    INT             reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    FLOAT           reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    STRING          reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    BOOL            reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    VOID            reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    $end            reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+    DLLAVE          reduce using rule 9 (lista_sentencias -> lista_sentencias sentencia .)
+
+
+state 5
+
+    (11) sentencia -> definicion_funcion .
+
+    IDENTIFICADOR   reduce using rule 11 (sentencia -> definicion_funcion .)
+    CONSOLE         reduce using rule 11 (sentencia -> definicion_funcion .)
+    IF              reduce using rule 11 (sentencia -> definicion_funcion .)
+    WHILE           reduce using rule 11 (sentencia -> definicion_funcion .)
+    FOR             reduce using rule 11 (sentencia -> definicion_funcion .)
+    BREAK           reduce using rule 11 (sentencia -> definicion_funcion .)
+    RETURN          reduce using rule 11 (sentencia -> definicion_funcion .)
+    INT             reduce using rule 11 (sentencia -> definicion_funcion .)
+    FLOAT           reduce using rule 11 (sentencia -> definicion_funcion .)
+    STRING          reduce using rule 11 (sentencia -> definicion_funcion .)
+    BOOL            reduce using rule 11 (sentencia -> definicion_funcion .)
+    VOID            reduce using rule 11 (sentencia -> definicion_funcion .)
+    $end            reduce using rule 11 (sentencia -> definicion_funcion .)
+    DLLAVE          reduce using rule 11 (sentencia -> definicion_funcion .)
+
+
+state 6
+
+    (12) sentencia -> asignacion . SENTENCIAFIN
+
+    SENTENCIAFIN    shift and go to state 26
+
+
+state 7
+
+    (13) sentencia -> impresion . SENTENCIAFIN
+
+    SENTENCIAFIN    shift and go to state 27
+
+
+state 8
+
+    (14) sentencia -> if_statement .
+
+    IDENTIFICADOR   reduce using rule 14 (sentencia -> if_statement .)
+    CONSOLE         reduce using rule 14 (sentencia -> if_statement .)
+    IF              reduce using rule 14 (sentencia -> if_statement .)
+    WHILE           reduce using rule 14 (sentencia -> if_statement .)
+    FOR             reduce using rule 14 (sentencia -> if_statement .)
+    BREAK           reduce using rule 14 (sentencia -> if_statement .)
+    RETURN          reduce using rule 14 (sentencia -> if_statement .)
+    INT             reduce using rule 14 (sentencia -> if_statement .)
+    FLOAT           reduce using rule 14 (sentencia -> if_statement .)
+    STRING          reduce using rule 14 (sentencia -> if_statement .)
+    BOOL            reduce using rule 14 (sentencia -> if_statement .)
+    VOID            reduce using rule 14 (sentencia -> if_statement .)
+    $end            reduce using rule 14 (sentencia -> if_statement .)
+    DLLAVE          reduce using rule 14 (sentencia -> if_statement .)
+
+
+state 9
+
+    (15) sentencia -> while_loop .
+
+    IDENTIFICADOR   reduce using rule 15 (sentencia -> while_loop .)
+    CONSOLE         reduce using rule 15 (sentencia -> while_loop .)
+    IF              reduce using rule 15 (sentencia -> while_loop .)
+    WHILE           reduce using rule 15 (sentencia -> while_loop .)
+    FOR             reduce using rule 15 (sentencia -> while_loop .)
+    BREAK           reduce using rule 15 (sentencia -> while_loop .)
+    RETURN          reduce using rule 15 (sentencia -> while_loop .)
+    INT             reduce using rule 15 (sentencia -> while_loop .)
+    FLOAT           reduce using rule 15 (sentencia -> while_loop .)
+    STRING          reduce using rule 15 (sentencia -> while_loop .)
+    BOOL            reduce using rule 15 (sentencia -> while_loop .)
+    VOID            reduce using rule 15 (sentencia -> while_loop .)
+    $end            reduce using rule 15 (sentencia -> while_loop .)
+    DLLAVE          reduce using rule 15 (sentencia -> while_loop .)
+
+
+state 10
+
+    (16) sentencia -> for_loop .
+
+    IDENTIFICADOR   reduce using rule 16 (sentencia -> for_loop .)
+    CONSOLE         reduce using rule 16 (sentencia -> for_loop .)
+    IF              reduce using rule 16 (sentencia -> for_loop .)
+    WHILE           reduce using rule 16 (sentencia -> for_loop .)
+    FOR             reduce using rule 16 (sentencia -> for_loop .)
+    BREAK           reduce using rule 16 (sentencia -> for_loop .)
+    RETURN          reduce using rule 16 (sentencia -> for_loop .)
+    INT             reduce using rule 16 (sentencia -> for_loop .)
+    FLOAT           reduce using rule 16 (sentencia -> for_loop .)
+    STRING          reduce using rule 16 (sentencia -> for_loop .)
+    BOOL            reduce using rule 16 (sentencia -> for_loop .)
+    VOID            reduce using rule 16 (sentencia -> for_loop .)
+    $end            reduce using rule 16 (sentencia -> for_loop .)
+    DLLAVE          reduce using rule 16 (sentencia -> for_loop .)
+
+
+state 11
+
+    (17) sentencia -> instruccion_break . SENTENCIAFIN
+
+    SENTENCIAFIN    shift and go to state 28
+
+
+state 12
+
+    (18) sentencia -> instruccion_return . SENTENCIAFIN
+
+    SENTENCIAFIN    shift and go to state 29
+
+
+state 13
+
+    (19) definicion_funcion -> tipo_retorno . IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo
+    (23) asignacion -> tipo_retorno . IDENTIFICADOR ASIGNAR expresion
+
+    IDENTIFICADOR   shift and go to state 30
+
+
+state 14
+
+    (24) asignacion -> IDENTIFICADOR . ASIGNAR expresion
+
+    ASIGNAR         shift and go to state 31
+
+
+state 15
+
+    (6) impresion -> CONSOLE . PUNTO WRITELINE IPAREN imprimible DPAREN
+
+    PUNTO           shift and go to state 32
+
+
+state 16
+
+    (22) if_statement -> IF . IPAREN expresion DPAREN bloque_codigo
+
+    IPAREN          shift and go to state 33
+
+
+state 17
+
+    (3) while_loop -> WHILE . IPAREN expresion DPAREN enter_loop_scope bloque_codigo
+
+    IPAREN          shift and go to state 34
+
+
+state 18
+
+    (4) for_loop -> FOR . IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+
+    IPAREN          shift and go to state 35
+
+
+state 19
+
+    (2) instruccion_break -> BREAK .
+
+    SENTENCIAFIN    reduce using rule 2 (instruccion_break -> BREAK .)
+
+
+state 20
+
+    (1) instruccion_return -> RETURN . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 36
+
+state 21
+
+    (25) tipo_retorno -> INT .
+
+    IDENTIFICADOR   reduce using rule 25 (tipo_retorno -> INT .)
+
+
+state 22
+
+    (26) tipo_retorno -> FLOAT .
+
+    IDENTIFICADOR   reduce using rule 26 (tipo_retorno -> FLOAT .)
+
+
+state 23
+
+    (27) tipo_retorno -> STRING .
+
+    IDENTIFICADOR   reduce using rule 27 (tipo_retorno -> STRING .)
+
+
+state 24
+
+    (28) tipo_retorno -> BOOL .
+
+    IDENTIFICADOR   reduce using rule 28 (tipo_retorno -> BOOL .)
+
+
+state 25
+
+    (29) tipo_retorno -> VOID .
+
+    IDENTIFICADOR   reduce using rule 29 (tipo_retorno -> VOID .)
+
+
+state 26
+
+    (12) sentencia -> asignacion SENTENCIAFIN .
+
+    IDENTIFICADOR   reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    CONSOLE         reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    IF              reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    WHILE           reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    FOR             reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    BREAK           reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    RETURN          reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    INT             reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    FLOAT           reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    STRING          reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    BOOL            reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    VOID            reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    $end            reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+    DLLAVE          reduce using rule 12 (sentencia -> asignacion SENTENCIAFIN .)
+
+
+state 27
+
+    (13) sentencia -> impresion SENTENCIAFIN .
+
+    IDENTIFICADOR   reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    CONSOLE         reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    IF              reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    WHILE           reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    FOR             reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    BREAK           reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    RETURN          reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    INT             reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    FLOAT           reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    STRING          reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    BOOL            reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    VOID            reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    $end            reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+    DLLAVE          reduce using rule 13 (sentencia -> impresion SENTENCIAFIN .)
+
+
+state 28
+
+    (17) sentencia -> instruccion_break SENTENCIAFIN .
+
+    IDENTIFICADOR   reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    CONSOLE         reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    IF              reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    WHILE           reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    FOR             reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    BREAK           reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    RETURN          reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    INT             reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    FLOAT           reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    STRING          reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    BOOL            reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    VOID            reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    $end            reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+    DLLAVE          reduce using rule 17 (sentencia -> instruccion_break SENTENCIAFIN .)
+
+
+state 29
+
+    (18) sentencia -> instruccion_return SENTENCIAFIN .
+
+    IDENTIFICADOR   reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    CONSOLE         reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    IF              reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    WHILE           reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    FOR             reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    BREAK           reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    RETURN          reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    INT             reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    FLOAT           reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    STRING          reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    BOOL            reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    VOID            reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    $end            reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+    DLLAVE          reduce using rule 18 (sentencia -> instruccion_return SENTENCIAFIN .)
+
+
+state 30
+
+    (19) definicion_funcion -> tipo_retorno IDENTIFICADOR . IPAREN DPAREN enter_function_scope bloque_codigo
+    (23) asignacion -> tipo_retorno IDENTIFICADOR . ASIGNAR expresion
+
+    IPAREN          shift and go to state 46
+    ASIGNAR         shift and go to state 47
+
+
+state 31
+
+    (24) asignacion -> IDENTIFICADOR ASIGNAR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 48
+
+state 32
+
+    (6) impresion -> CONSOLE PUNTO . WRITELINE IPAREN imprimible DPAREN
+
+    WRITELINE       shift and go to state 49
+
+
+state 33
+
+    (22) if_statement -> IF IPAREN . expresion DPAREN bloque_codigo
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 50
+
+state 34
+
+    (3) while_loop -> WHILE IPAREN . expresion DPAREN enter_loop_scope bloque_codigo
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 51
+
+state 35
+
+    (4) for_loop -> FOR IPAREN . asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+    (23) asignacion -> . tipo_retorno IDENTIFICADOR ASIGNAR expresion
+    (24) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (25) tipo_retorno -> . INT
+    (26) tipo_retorno -> . FLOAT
+    (27) tipo_retorno -> . STRING
+    (28) tipo_retorno -> . BOOL
+    (29) tipo_retorno -> . VOID
+
+    IDENTIFICADOR   shift and go to state 14
+    INT             shift and go to state 21
+    FLOAT           shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+
+    asignacion                     shift and go to state 52
+    tipo_retorno                   shift and go to state 53
+
+state 36
+
+    (1) instruccion_return -> RETURN expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    SENTENCIAFIN    reduce using rule 1 (instruccion_return -> RETURN expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 37
+
+    (44) expresion -> MENOS . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 67
+
+state 38
+
+    (43) expresion -> NOT . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 68
+
+state 39
+
+    (45) expresion -> IPAREN . expresion DPAREN
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 69
+
+state 40
+
+    (46) expresion -> IDENTIFICADOR .
+
+    MAS             reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MENOS           reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    POR             reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    DIVIDIR         reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MODULO          reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    AND             reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    OR              reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MAYOR           reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MENOR           reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MAYORIGUAL      reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    MENORIGUAL      reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    IGUAL           reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    DIFERENTE       reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    SENTENCIAFIN    reduce using rule 46 (expresion -> IDENTIFICADOR .)
+    DPAREN          reduce using rule 46 (expresion -> IDENTIFICADOR .)
+
+
+state 41
+
+    (47) expresion -> INT_LITERAL .
+
+    MAS             reduce using rule 47 (expresion -> INT_LITERAL .)
+    MENOS           reduce using rule 47 (expresion -> INT_LITERAL .)
+    POR             reduce using rule 47 (expresion -> INT_LITERAL .)
+    DIVIDIR         reduce using rule 47 (expresion -> INT_LITERAL .)
+    MODULO          reduce using rule 47 (expresion -> INT_LITERAL .)
+    AND             reduce using rule 47 (expresion -> INT_LITERAL .)
+    OR              reduce using rule 47 (expresion -> INT_LITERAL .)
+    MAYOR           reduce using rule 47 (expresion -> INT_LITERAL .)
+    MENOR           reduce using rule 47 (expresion -> INT_LITERAL .)
+    MAYORIGUAL      reduce using rule 47 (expresion -> INT_LITERAL .)
+    MENORIGUAL      reduce using rule 47 (expresion -> INT_LITERAL .)
+    IGUAL           reduce using rule 47 (expresion -> INT_LITERAL .)
+    DIFERENTE       reduce using rule 47 (expresion -> INT_LITERAL .)
+    SENTENCIAFIN    reduce using rule 47 (expresion -> INT_LITERAL .)
+    DPAREN          reduce using rule 47 (expresion -> INT_LITERAL .)
+
+
+state 42
+
+    (48) expresion -> FLOAT_LITERAL .
+
+    MAS             reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MENOS           reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    POR             reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    DIVIDIR         reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MODULO          reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    AND             reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    OR              reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MAYOR           reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MENOR           reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MAYORIGUAL      reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    MENORIGUAL      reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    IGUAL           reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    DIFERENTE       reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    SENTENCIAFIN    reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+    DPAREN          reduce using rule 48 (expresion -> FLOAT_LITERAL .)
+
+
+state 43
+
+    (49) expresion -> STRING_LITERAL .
+
+    MAS             reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MENOS           reduce using rule 49 (expresion -> STRING_LITERAL .)
+    POR             reduce using rule 49 (expresion -> STRING_LITERAL .)
+    DIVIDIR         reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MODULO          reduce using rule 49 (expresion -> STRING_LITERAL .)
+    AND             reduce using rule 49 (expresion -> STRING_LITERAL .)
+    OR              reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MAYOR           reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MENOR           reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MAYORIGUAL      reduce using rule 49 (expresion -> STRING_LITERAL .)
+    MENORIGUAL      reduce using rule 49 (expresion -> STRING_LITERAL .)
+    IGUAL           reduce using rule 49 (expresion -> STRING_LITERAL .)
+    DIFERENTE       reduce using rule 49 (expresion -> STRING_LITERAL .)
+    SENTENCIAFIN    reduce using rule 49 (expresion -> STRING_LITERAL .)
+    DPAREN          reduce using rule 49 (expresion -> STRING_LITERAL .)
+
+
+state 44
+
+    (50) expresion -> TRUE .
+
+    MAS             reduce using rule 50 (expresion -> TRUE .)
+    MENOS           reduce using rule 50 (expresion -> TRUE .)
+    POR             reduce using rule 50 (expresion -> TRUE .)
+    DIVIDIR         reduce using rule 50 (expresion -> TRUE .)
+    MODULO          reduce using rule 50 (expresion -> TRUE .)
+    AND             reduce using rule 50 (expresion -> TRUE .)
+    OR              reduce using rule 50 (expresion -> TRUE .)
+    MAYOR           reduce using rule 50 (expresion -> TRUE .)
+    MENOR           reduce using rule 50 (expresion -> TRUE .)
+    MAYORIGUAL      reduce using rule 50 (expresion -> TRUE .)
+    MENORIGUAL      reduce using rule 50 (expresion -> TRUE .)
+    IGUAL           reduce using rule 50 (expresion -> TRUE .)
+    DIFERENTE       reduce using rule 50 (expresion -> TRUE .)
+    SENTENCIAFIN    reduce using rule 50 (expresion -> TRUE .)
+    DPAREN          reduce using rule 50 (expresion -> TRUE .)
+
+
+state 45
+
+    (51) expresion -> FALSE .
+
+    MAS             reduce using rule 51 (expresion -> FALSE .)
+    MENOS           reduce using rule 51 (expresion -> FALSE .)
+    POR             reduce using rule 51 (expresion -> FALSE .)
+    DIVIDIR         reduce using rule 51 (expresion -> FALSE .)
+    MODULO          reduce using rule 51 (expresion -> FALSE .)
+    AND             reduce using rule 51 (expresion -> FALSE .)
+    OR              reduce using rule 51 (expresion -> FALSE .)
+    MAYOR           reduce using rule 51 (expresion -> FALSE .)
+    MENOR           reduce using rule 51 (expresion -> FALSE .)
+    MAYORIGUAL      reduce using rule 51 (expresion -> FALSE .)
+    MENORIGUAL      reduce using rule 51 (expresion -> FALSE .)
+    IGUAL           reduce using rule 51 (expresion -> FALSE .)
+    DIFERENTE       reduce using rule 51 (expresion -> FALSE .)
+    SENTENCIAFIN    reduce using rule 51 (expresion -> FALSE .)
+    DPAREN          reduce using rule 51 (expresion -> FALSE .)
+
+
+state 46
+
+    (19) definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN . DPAREN enter_function_scope bloque_codigo
+
+    DPAREN          shift and go to state 70
+
+
+state 47
+
+    (23) asignacion -> tipo_retorno IDENTIFICADOR ASIGNAR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 71
+
+state 48
+
+    (24) asignacion -> IDENTIFICADOR ASIGNAR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    SENTENCIAFIN    reduce using rule 24 (asignacion -> IDENTIFICADOR ASIGNAR expresion .)
+    DPAREN          reduce using rule 24 (asignacion -> IDENTIFICADOR ASIGNAR expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 49
+
+    (6) impresion -> CONSOLE PUNTO WRITELINE . IPAREN imprimible DPAREN
+
+    IPAREN          shift and go to state 72
+
+
+state 50
+
+    (22) if_statement -> IF IPAREN expresion . DPAREN bloque_codigo
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    DPAREN          shift and go to state 73
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 51
+
+    (3) while_loop -> WHILE IPAREN expresion . DPAREN enter_loop_scope bloque_codigo
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    DPAREN          shift and go to state 74
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 52
+
+    (4) for_loop -> FOR IPAREN asignacion . SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+
+    SENTENCIAFIN    shift and go to state 75
+
+
+state 53
+
+    (23) asignacion -> tipo_retorno . IDENTIFICADOR ASIGNAR expresion
+
+    IDENTIFICADOR   shift and go to state 76
+
+
+state 54
+
+    (30) expresion -> expresion MAS . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 77
+
+state 55
+
+    (31) expresion -> expresion MENOS . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 78
+
+state 56
+
+    (32) expresion -> expresion POR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 79
+
+state 57
+
+    (33) expresion -> expresion DIVIDIR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 80
+
+state 58
+
+    (34) expresion -> expresion MODULO . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 81
+
+state 59
+
+    (35) expresion -> expresion AND . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 82
+
+state 60
+
+    (36) expresion -> expresion OR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 83
+
+state 61
+
+    (37) expresion -> expresion MAYOR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 84
+
+state 62
+
+    (38) expresion -> expresion MENOR . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 85
+
+state 63
+
+    (39) expresion -> expresion MAYORIGUAL . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 86
+
+state 64
+
+    (40) expresion -> expresion MENORIGUAL . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 87
+
+state 65
+
+    (41) expresion -> expresion IGUAL . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 88
+
+state 66
+
+    (42) expresion -> expresion DIFERENTE . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 89
+
+state 67
+
+    (44) expresion -> MENOS expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 44 (expresion -> MENOS expresion .)
+    MENOS           reduce using rule 44 (expresion -> MENOS expresion .)
+    POR             reduce using rule 44 (expresion -> MENOS expresion .)
+    DIVIDIR         reduce using rule 44 (expresion -> MENOS expresion .)
+    MODULO          reduce using rule 44 (expresion -> MENOS expresion .)
+    AND             reduce using rule 44 (expresion -> MENOS expresion .)
+    OR              reduce using rule 44 (expresion -> MENOS expresion .)
+    MAYOR           reduce using rule 44 (expresion -> MENOS expresion .)
+    MENOR           reduce using rule 44 (expresion -> MENOS expresion .)
+    MAYORIGUAL      reduce using rule 44 (expresion -> MENOS expresion .)
+    MENORIGUAL      reduce using rule 44 (expresion -> MENOS expresion .)
+    IGUAL           reduce using rule 44 (expresion -> MENOS expresion .)
+    DIFERENTE       reduce using rule 44 (expresion -> MENOS expresion .)
+    SENTENCIAFIN    reduce using rule 44 (expresion -> MENOS expresion .)
+    DPAREN          reduce using rule 44 (expresion -> MENOS expresion .)
+
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! POR             [ shift and go to state 56 ]
+  ! DIVIDIR         [ shift and go to state 57 ]
+  ! MODULO          [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 68
+
+    (43) expresion -> NOT expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 43 (expresion -> NOT expresion .)
+    MENOS           reduce using rule 43 (expresion -> NOT expresion .)
+    POR             reduce using rule 43 (expresion -> NOT expresion .)
+    DIVIDIR         reduce using rule 43 (expresion -> NOT expresion .)
+    MODULO          reduce using rule 43 (expresion -> NOT expresion .)
+    AND             reduce using rule 43 (expresion -> NOT expresion .)
+    OR              reduce using rule 43 (expresion -> NOT expresion .)
+    MAYOR           reduce using rule 43 (expresion -> NOT expresion .)
+    MENOR           reduce using rule 43 (expresion -> NOT expresion .)
+    MAYORIGUAL      reduce using rule 43 (expresion -> NOT expresion .)
+    MENORIGUAL      reduce using rule 43 (expresion -> NOT expresion .)
+    IGUAL           reduce using rule 43 (expresion -> NOT expresion .)
+    DIFERENTE       reduce using rule 43 (expresion -> NOT expresion .)
+    SENTENCIAFIN    reduce using rule 43 (expresion -> NOT expresion .)
+    DPAREN          reduce using rule 43 (expresion -> NOT expresion .)
+
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! POR             [ shift and go to state 56 ]
+  ! DIVIDIR         [ shift and go to state 57 ]
+  ! MODULO          [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 69
+
+    (45) expresion -> IPAREN expresion . DPAREN
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    DPAREN          shift and go to state 90
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 70
+
+    (19) definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN . enter_function_scope bloque_codigo
+    (20) enter_function_scope -> .
+
+    ILLAVE          reduce using rule 20 (enter_function_scope -> .)
+
+    enter_function_scope           shift and go to state 91
+
+state 71
+
+    (23) asignacion -> tipo_retorno IDENTIFICADOR ASIGNAR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    SENTENCIAFIN    reduce using rule 23 (asignacion -> tipo_retorno IDENTIFICADOR ASIGNAR expresion .)
+    DPAREN          reduce using rule 23 (asignacion -> tipo_retorno IDENTIFICADOR ASIGNAR expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 72
+
+    (6) impresion -> CONSOLE PUNTO WRITELINE IPAREN . imprimible DPAREN
+    (7) imprimible -> . expresion
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    imprimible                     shift and go to state 92
+    expresion                      shift and go to state 93
+
+state 73
+
+    (22) if_statement -> IF IPAREN expresion DPAREN . bloque_codigo
+    (21) bloque_codigo -> . ILLAVE lista_sentencias DLLAVE
+
+    ILLAVE          shift and go to state 95
+
+    bloque_codigo                  shift and go to state 94
+
+state 74
+
+    (3) while_loop -> WHILE IPAREN expresion DPAREN . enter_loop_scope bloque_codigo
+    (5) enter_loop_scope -> .
+
+    ILLAVE          reduce using rule 5 (enter_loop_scope -> .)
+
+    enter_loop_scope               shift and go to state 96
+
+state 75
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN . expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+    (30) expresion -> . expresion MAS expresion
+    (31) expresion -> . expresion MENOS expresion
+    (32) expresion -> . expresion POR expresion
+    (33) expresion -> . expresion DIVIDIR expresion
+    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion AND expresion
+    (36) expresion -> . expresion OR expresion
+    (37) expresion -> . expresion MAYOR expresion
+    (38) expresion -> . expresion MENOR expresion
+    (39) expresion -> . expresion MAYORIGUAL expresion
+    (40) expresion -> . expresion MENORIGUAL expresion
+    (41) expresion -> . expresion IGUAL expresion
+    (42) expresion -> . expresion DIFERENTE expresion
+    (43) expresion -> . NOT expresion
+    (44) expresion -> . MENOS expresion
+    (45) expresion -> . IPAREN expresion DPAREN
+    (46) expresion -> . IDENTIFICADOR
+    (47) expresion -> . INT_LITERAL
+    (48) expresion -> . FLOAT_LITERAL
+    (49) expresion -> . STRING_LITERAL
+    (50) expresion -> . TRUE
+    (51) expresion -> . FALSE
+
+    NOT             shift and go to state 38
+    MENOS           shift and go to state 37
+    IPAREN          shift and go to state 39
+    IDENTIFICADOR   shift and go to state 40
+    INT_LITERAL     shift and go to state 41
+    FLOAT_LITERAL   shift and go to state 42
+    STRING_LITERAL  shift and go to state 43
+    TRUE            shift and go to state 44
+    FALSE           shift and go to state 45
+
+    expresion                      shift and go to state 97
+
+state 76
+
+    (23) asignacion -> tipo_retorno IDENTIFICADOR . ASIGNAR expresion
+
+    ASIGNAR         shift and go to state 47
+
+
+state 77
+
+    (30) expresion -> expresion MAS expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 30 (expresion -> expresion MAS expresion .)
+    MENOS           reduce using rule 30 (expresion -> expresion MAS expresion .)
+    AND             reduce using rule 30 (expresion -> expresion MAS expresion .)
+    OR              reduce using rule 30 (expresion -> expresion MAS expresion .)
+    MAYOR           reduce using rule 30 (expresion -> expresion MAS expresion .)
+    MENOR           reduce using rule 30 (expresion -> expresion MAS expresion .)
+    MAYORIGUAL      reduce using rule 30 (expresion -> expresion MAS expresion .)
+    MENORIGUAL      reduce using rule 30 (expresion -> expresion MAS expresion .)
+    IGUAL           reduce using rule 30 (expresion -> expresion MAS expresion .)
+    DIFERENTE       reduce using rule 30 (expresion -> expresion MAS expresion .)
+    SENTENCIAFIN    reduce using rule 30 (expresion -> expresion MAS expresion .)
+    DPAREN          reduce using rule 30 (expresion -> expresion MAS expresion .)
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! POR             [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
+  ! DIVIDIR         [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
+  ! MODULO          [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 78
+
+    (31) expresion -> expresion MENOS expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    MENOS           reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    AND             reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    OR              reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    MAYOR           reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    MENOR           reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    MAYORIGUAL      reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    MENORIGUAL      reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    IGUAL           reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    DIFERENTE       reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    SENTENCIAFIN    reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    DPAREN          reduce using rule 31 (expresion -> expresion MENOS expresion .)
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! POR             [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
+  ! DIVIDIR         [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
+  ! MODULO          [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 79
+
+    (32) expresion -> expresion POR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 32 (expresion -> expresion POR expresion .)
+    MENOS           reduce using rule 32 (expresion -> expresion POR expresion .)
+    POR             reduce using rule 32 (expresion -> expresion POR expresion .)
+    DIVIDIR         reduce using rule 32 (expresion -> expresion POR expresion .)
+    MODULO          reduce using rule 32 (expresion -> expresion POR expresion .)
+    AND             reduce using rule 32 (expresion -> expresion POR expresion .)
+    OR              reduce using rule 32 (expresion -> expresion POR expresion .)
+    MAYOR           reduce using rule 32 (expresion -> expresion POR expresion .)
+    MENOR           reduce using rule 32 (expresion -> expresion POR expresion .)
+    MAYORIGUAL      reduce using rule 32 (expresion -> expresion POR expresion .)
+    MENORIGUAL      reduce using rule 32 (expresion -> expresion POR expresion .)
+    IGUAL           reduce using rule 32 (expresion -> expresion POR expresion .)
+    DIFERENTE       reduce using rule 32 (expresion -> expresion POR expresion .)
+    SENTENCIAFIN    reduce using rule 32 (expresion -> expresion POR expresion .)
+    DPAREN          reduce using rule 32 (expresion -> expresion POR expresion .)
+
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! POR             [ shift and go to state 56 ]
+  ! DIVIDIR         [ shift and go to state 57 ]
+  ! MODULO          [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 80
+
+    (33) expresion -> expresion DIVIDIR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MENOS           reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    POR             reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    DIVIDIR         reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MODULO          reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    AND             reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    OR              reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MAYOR           reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MENOR           reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MAYORIGUAL      reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    MENORIGUAL      reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    IGUAL           reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    DIFERENTE       reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    SENTENCIAFIN    reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+    DPAREN          reduce using rule 33 (expresion -> expresion DIVIDIR expresion .)
+
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! POR             [ shift and go to state 56 ]
+  ! DIVIDIR         [ shift and go to state 57 ]
+  ! MODULO          [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 81
+
+    (34) expresion -> expresion MODULO expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    MAS             reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MENOS           reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    POR             reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    DIVIDIR         reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MODULO          reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    AND             reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    OR              reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MAYOR           reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MENOR           reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MAYORIGUAL      reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    MENORIGUAL      reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    IGUAL           reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    DIFERENTE       reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    SENTENCIAFIN    reduce using rule 34 (expresion -> expresion MODULO expresion .)
+    DPAREN          reduce using rule 34 (expresion -> expresion MODULO expresion .)
+
+  ! MAS             [ shift and go to state 54 ]
+  ! MENOS           [ shift and go to state 55 ]
+  ! POR             [ shift and go to state 56 ]
+  ! DIVIDIR         [ shift and go to state 57 ]
+  ! MODULO          [ shift and go to state 58 ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 82
+
+    (35) expresion -> expresion AND expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 35 (expresion -> expresion AND expresion .)
+    OR              reduce using rule 35 (expresion -> expresion AND expresion .)
+    SENTENCIAFIN    reduce using rule 35 (expresion -> expresion AND expresion .)
+    DPAREN          reduce using rule 35 (expresion -> expresion AND expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+  ! MAS             [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MENOS           [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! POR             [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! DIVIDIR         [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MODULO          [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MAYOR           [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MENOR           [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! IGUAL           [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! DIFERENTE       [ reduce using rule 35 (expresion -> expresion AND expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+
+
+state 83
+
+    (36) expresion -> expresion OR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    OR              reduce using rule 36 (expresion -> expresion OR expresion .)
+    SENTENCIAFIN    reduce using rule 36 (expresion -> expresion OR expresion .)
+    DPAREN          reduce using rule 36 (expresion -> expresion OR expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+  ! MAS             [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MENOS           [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! POR             [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! DIVIDIR         [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MODULO          [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! AND             [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MAYOR           [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MENOR           [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! IGUAL           [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! DIFERENTE       [ reduce using rule 36 (expresion -> expresion OR expresion .) ]
+  ! OR              [ shift and go to state 60 ]
+
+
+state 84
+
+    (37) expresion -> expresion MAYOR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    OR              reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    MAYOR           reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    MENOR           reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    MAYORIGUAL      reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    MENORIGUAL      reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    IGUAL           reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    DIFERENTE       reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    SENTENCIAFIN    reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    DPAREN          reduce using rule 37 (expresion -> expresion MAYOR expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! MAS             [ reduce using rule 37 (expresion -> expresion MAYOR expresion .) ]
+  ! MENOS           [ reduce using rule 37 (expresion -> expresion MAYOR expresion .) ]
+  ! POR             [ reduce using rule 37 (expresion -> expresion MAYOR expresion .) ]
+  ! DIVIDIR         [ reduce using rule 37 (expresion -> expresion MAYOR expresion .) ]
+  ! MODULO          [ reduce using rule 37 (expresion -> expresion MAYOR expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 85
+
+    (38) expresion -> expresion MENOR expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    OR              reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    MAYOR           reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    MENOR           reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    MAYORIGUAL      reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    MENORIGUAL      reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    IGUAL           reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    DIFERENTE       reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    SENTENCIAFIN    reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    DPAREN          reduce using rule 38 (expresion -> expresion MENOR expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! MAS             [ reduce using rule 38 (expresion -> expresion MENOR expresion .) ]
+  ! MENOS           [ reduce using rule 38 (expresion -> expresion MENOR expresion .) ]
+  ! POR             [ reduce using rule 38 (expresion -> expresion MENOR expresion .) ]
+  ! DIVIDIR         [ reduce using rule 38 (expresion -> expresion MENOR expresion .) ]
+  ! MODULO          [ reduce using rule 38 (expresion -> expresion MENOR expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 86
+
+    (39) expresion -> expresion MAYORIGUAL expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    OR              reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYOR           reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    MENOR           reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    IGUAL           reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    DIFERENTE       reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    SENTENCIAFIN    reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    DPAREN          reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! MAS             [ reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! POR             [ reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! DIVIDIR         [ reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! MODULO          [ reduce using rule 39 (expresion -> expresion MAYORIGUAL expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 87
+
+    (40) expresion -> expresion MENORIGUAL expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    OR              reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    MAYOR           reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    MENOR           reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    MAYORIGUAL      reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    MENORIGUAL      reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    IGUAL           reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    DIFERENTE       reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    SENTENCIAFIN    reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    DPAREN          reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+
+  ! MAS             [ reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! POR             [ reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! DIVIDIR         [ reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! MODULO          [ reduce using rule 40 (expresion -> expresion MENORIGUAL expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! MAYOR           [ shift and go to state 61 ]
+  ! MENOR           [ shift and go to state 62 ]
+  ! MAYORIGUAL      [ shift and go to state 63 ]
+  ! MENORIGUAL      [ shift and go to state 64 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 88
+
+    (41) expresion -> expresion IGUAL expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    OR              reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    IGUAL           reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    DIFERENTE       reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    SENTENCIAFIN    reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    DPAREN          reduce using rule 41 (expresion -> expresion IGUAL expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+
+  ! MAS             [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! POR             [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! DIVIDIR         [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MODULO          [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MAYOR           [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MENOR           [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 41 (expresion -> expresion IGUAL expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 89
+
+    (42) expresion -> expresion DIFERENTE expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    AND             reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    OR              reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    IGUAL           reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    DIFERENTE       reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    SENTENCIAFIN    reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    DPAREN          reduce using rule 42 (expresion -> expresion DIFERENTE expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+
+  ! MAS             [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENOS           [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! POR             [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! DIVIDIR         [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MODULO          [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MAYOR           [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENOR           [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MAYORIGUAL      [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! MENORIGUAL      [ reduce using rule 42 (expresion -> expresion DIFERENTE expresion .) ]
+  ! AND             [ shift and go to state 59 ]
+  ! OR              [ shift and go to state 60 ]
+  ! IGUAL           [ shift and go to state 65 ]
+  ! DIFERENTE       [ shift and go to state 66 ]
+
+
+state 90
+
+    (45) expresion -> IPAREN expresion DPAREN .
+
+    MAS             reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MENOS           reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    POR             reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    DIVIDIR         reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MODULO          reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    AND             reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    OR              reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MAYOR           reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MENOR           reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MAYORIGUAL      reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    MENORIGUAL      reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    IGUAL           reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    DIFERENTE       reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    SENTENCIAFIN    reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+    DPAREN          reduce using rule 45 (expresion -> IPAREN expresion DPAREN .)
+
+
+state 91
+
+    (19) definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope . bloque_codigo
+    (21) bloque_codigo -> . ILLAVE lista_sentencias DLLAVE
+
+    ILLAVE          shift and go to state 95
+
+    bloque_codigo                  shift and go to state 98
+
+state 92
+
+    (6) impresion -> CONSOLE PUNTO WRITELINE IPAREN imprimible . DPAREN
+
+    DPAREN          shift and go to state 99
+
+
+state 93
+
+    (7) imprimible -> expresion .
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    DPAREN          reduce using rule 7 (imprimible -> expresion .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 94
+
+    (22) if_statement -> IF IPAREN expresion DPAREN bloque_codigo .
+
+    IDENTIFICADOR   reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    CONSOLE         reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    IF              reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    WHILE           reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    FOR             reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    BREAK           reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    RETURN          reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    INT             reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    FLOAT           reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    STRING          reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    BOOL            reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    VOID            reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    $end            reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+    DLLAVE          reduce using rule 22 (if_statement -> IF IPAREN expresion DPAREN bloque_codigo .)
+
+
+state 95
+
+    (21) bloque_codigo -> ILLAVE . lista_sentencias DLLAVE
+    (9) lista_sentencias -> . lista_sentencias sentencia
+    (10) lista_sentencias -> . empty
+    (52) empty -> .
+
+    DLLAVE          reduce using rule 52 (empty -> .)
+    IDENTIFICADOR   reduce using rule 52 (empty -> .)
+    CONSOLE         reduce using rule 52 (empty -> .)
+    IF              reduce using rule 52 (empty -> .)
+    WHILE           reduce using rule 52 (empty -> .)
+    FOR             reduce using rule 52 (empty -> .)
+    BREAK           reduce using rule 52 (empty -> .)
+    RETURN          reduce using rule 52 (empty -> .)
+    INT             reduce using rule 52 (empty -> .)
+    FLOAT           reduce using rule 52 (empty -> .)
+    STRING          reduce using rule 52 (empty -> .)
+    BOOL            reduce using rule 52 (empty -> .)
+    VOID            reduce using rule 52 (empty -> .)
+
+    lista_sentencias               shift and go to state 100
+    empty                          shift and go to state 3
+
+state 96
+
+    (3) while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope . bloque_codigo
+    (21) bloque_codigo -> . ILLAVE lista_sentencias DLLAVE
+
+    ILLAVE          shift and go to state 95
+
+    bloque_codigo                  shift and go to state 101
+
+state 97
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion . SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+    (30) expresion -> expresion . MAS expresion
+    (31) expresion -> expresion . MENOS expresion
+    (32) expresion -> expresion . POR expresion
+    (33) expresion -> expresion . DIVIDIR expresion
+    (34) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . AND expresion
+    (36) expresion -> expresion . OR expresion
+    (37) expresion -> expresion . MAYOR expresion
+    (38) expresion -> expresion . MENOR expresion
+    (39) expresion -> expresion . MAYORIGUAL expresion
+    (40) expresion -> expresion . MENORIGUAL expresion
+    (41) expresion -> expresion . IGUAL expresion
+    (42) expresion -> expresion . DIFERENTE expresion
+
+    SENTENCIAFIN    shift and go to state 102
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+    POR             shift and go to state 56
+    DIVIDIR         shift and go to state 57
+    MODULO          shift and go to state 58
+    AND             shift and go to state 59
+    OR              shift and go to state 60
+    MAYOR           shift and go to state 61
+    MENOR           shift and go to state 62
+    MAYORIGUAL      shift and go to state 63
+    MENORIGUAL      shift and go to state 64
+    IGUAL           shift and go to state 65
+    DIFERENTE       shift and go to state 66
+
+
+state 98
+
+    (19) definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .
+
+    IDENTIFICADOR   reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    CONSOLE         reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    IF              reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    WHILE           reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    FOR             reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    BREAK           reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    RETURN          reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    INT             reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    FLOAT           reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    STRING          reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    BOOL            reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    VOID            reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    $end            reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+    DLLAVE          reduce using rule 19 (definicion_funcion -> tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo .)
+
+
+state 99
+
+    (6) impresion -> CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN .
+
+    SENTENCIAFIN    reduce using rule 6 (impresion -> CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN .)
+
+
+state 100
+
+    (21) bloque_codigo -> ILLAVE lista_sentencias . DLLAVE
+    (9) lista_sentencias -> lista_sentencias . sentencia
+    (11) sentencia -> . definicion_funcion
+    (12) sentencia -> . asignacion SENTENCIAFIN
+    (13) sentencia -> . impresion SENTENCIAFIN
+    (14) sentencia -> . if_statement
+    (15) sentencia -> . while_loop
+    (16) sentencia -> . for_loop
+    (17) sentencia -> . instruccion_break SENTENCIAFIN
+    (18) sentencia -> . instruccion_return SENTENCIAFIN
+    (19) definicion_funcion -> . tipo_retorno IDENTIFICADOR IPAREN DPAREN enter_function_scope bloque_codigo
+    (23) asignacion -> . tipo_retorno IDENTIFICADOR ASIGNAR expresion
+    (24) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (6) impresion -> . CONSOLE PUNTO WRITELINE IPAREN imprimible DPAREN
+    (22) if_statement -> . IF IPAREN expresion DPAREN bloque_codigo
+    (3) while_loop -> . WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo
+    (4) for_loop -> . FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo
+    (2) instruccion_break -> . BREAK
+    (1) instruccion_return -> . RETURN expresion
+    (25) tipo_retorno -> . INT
+    (26) tipo_retorno -> . FLOAT
+    (27) tipo_retorno -> . STRING
+    (28) tipo_retorno -> . BOOL
+    (29) tipo_retorno -> . VOID
+
+    DLLAVE          shift and go to state 103
+    IDENTIFICADOR   shift and go to state 14
+    CONSOLE         shift and go to state 15
+    IF              shift and go to state 16
+    WHILE           shift and go to state 17
+    FOR             shift and go to state 18
+    BREAK           shift and go to state 19
+    RETURN          shift and go to state 20
+    INT             shift and go to state 21
+    FLOAT           shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+
+    sentencia                      shift and go to state 4
+    definicion_funcion             shift and go to state 5
+    asignacion                     shift and go to state 6
+    impresion                      shift and go to state 7
+    if_statement                   shift and go to state 8
+    while_loop                     shift and go to state 9
+    for_loop                       shift and go to state 10
+    instruccion_break              shift and go to state 11
+    instruccion_return             shift and go to state 12
+    tipo_retorno                   shift and go to state 13
+
+state 101
+
+    (3) while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .
+
+    IDENTIFICADOR   reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    CONSOLE         reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    IF              reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    WHILE           reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    FOR             reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    BREAK           reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    RETURN          reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    INT             reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    FLOAT           reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    STRING          reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    BOOL            reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    VOID            reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    $end            reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+    DLLAVE          reduce using rule 3 (while_loop -> WHILE IPAREN expresion DPAREN enter_loop_scope bloque_codigo .)
+
+
+state 102
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN . asignacion DPAREN enter_loop_scope bloque_codigo
+    (23) asignacion -> . tipo_retorno IDENTIFICADOR ASIGNAR expresion
+    (24) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (25) tipo_retorno -> . INT
+    (26) tipo_retorno -> . FLOAT
+    (27) tipo_retorno -> . STRING
+    (28) tipo_retorno -> . BOOL
+    (29) tipo_retorno -> . VOID
+
+    IDENTIFICADOR   shift and go to state 14
+    INT             shift and go to state 21
+    FLOAT           shift and go to state 22
+    STRING          shift and go to state 23
+    BOOL            shift and go to state 24
+    VOID            shift and go to state 25
+
+    asignacion                     shift and go to state 104
+    tipo_retorno                   shift and go to state 53
+
+state 103
+
+    (21) bloque_codigo -> ILLAVE lista_sentencias DLLAVE .
+
+    IDENTIFICADOR   reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    CONSOLE         reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    IF              reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    WHILE           reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    FOR             reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    BREAK           reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    RETURN          reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    INT             reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    FLOAT           reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    STRING          reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    BOOL            reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    VOID            reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    $end            reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+    DLLAVE          reduce using rule 21 (bloque_codigo -> ILLAVE lista_sentencias DLLAVE .)
+
+
+state 104
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion . DPAREN enter_loop_scope bloque_codigo
+
+    DPAREN          shift and go to state 105
+
+
+state 105
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN . enter_loop_scope bloque_codigo
+    (5) enter_loop_scope -> .
+
+    ILLAVE          reduce using rule 5 (enter_loop_scope -> .)
+
+    enter_loop_scope               shift and go to state 106
+
+state 106
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope . bloque_codigo
+    (21) bloque_codigo -> . ILLAVE lista_sentencias DLLAVE
+
+    ILLAVE          shift and go to state 95
+
+    bloque_codigo                  shift and go to state 107
+
+state 107
+
+    (4) for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .
+
+    IDENTIFICADOR   reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    CONSOLE         reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    IF              reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    WHILE           reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    FOR             reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    BREAK           reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    RETURN          reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    INT             reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    FLOAT           reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    STRING          reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    BOOL            reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    VOID            reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    $end            reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+    DLLAVE          reduce using rule 4 (for_loop -> FOR IPAREN asignacion SENTENCIAFIN expresion SENTENCIAFIN asignacion DPAREN enter_loop_scope bloque_codigo .)
+

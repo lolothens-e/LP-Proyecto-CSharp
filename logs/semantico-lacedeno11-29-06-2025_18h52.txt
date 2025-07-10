@@ -1,0 +1,5 @@
+C# > int obtener(){return 0;}
+[('def_funcion', 'int', 'obtener', ('bloque', [('return', '0')]))]
+C# > int obtener(){return "hola";}
+[Error] list index out of range
+C# > exit

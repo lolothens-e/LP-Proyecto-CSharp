@@ -1,0 +1,5 @@
+C# > string obtener(){return 123};
+[Error] list index out of range
+C# > string obtener(){return 123;}
+[Error] list index out of range
+C# > exit

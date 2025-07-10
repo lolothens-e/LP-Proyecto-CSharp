@@ -1,0 +1,3 @@
+C# > string obtener(){return 1;}
+[('def_funcion', 'string', 'obtener', ('bloque', [('return', '1')]))]
+C# > exit

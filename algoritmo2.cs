@@ -36,7 +36,4 @@ class TestPrimitivosYArrays
     List<string> amigos = new List<string>();
     int[] notas = new int[3];
 
-    if (edad > 18 && aprobado || nombre == "Ariel") {
-        Console.WriteLine("Estudiante válido");
-    }
 }

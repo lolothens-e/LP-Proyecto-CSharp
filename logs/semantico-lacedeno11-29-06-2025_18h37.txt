@@ -1,0 +1,7 @@
+C# > int obtenerNumero() {
+None
+C# >   return 10;
+[Error Semántico] Línea 1: 'return' solo puede usarse dentro de una función.
+C# > }
+[]
+C# > exit
