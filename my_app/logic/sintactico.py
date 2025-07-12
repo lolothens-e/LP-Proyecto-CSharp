@@ -507,3 +507,48 @@ def verificar_asignacion(nodo):
         raise Exception(f"Error: Asignación incompatible de {tipo_valor} a {tipo_destino}")
 
 #ArielV17 fin
+
+def analizar_codigo(codigo_fuente):
+    """
+    Esta función centraliza el análisis léxico, sintáctico y semántico.
+    Es la única función que el servidor Flask necesita llamar.
+    """
+    # 1. Limpiar estado de análisis anteriores para cada ejecución
+    # Es crucial para que las peticiones web no compartan errores.
+    symbol_table.clear()
+    errores_semanticos.clear()
+    semantic_context['dentro_de_bucle'] = 0
+    semantic_context['funcion_actual'] = None
+    lexer.lineno = 1
+
+    # 2. Análisis Léxico: Obtener la lista de tokens
+    tokens_lexicos = []
+    try:
+        lexer.input(codigo_fuente)
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
+            tokens_lexicos.append(str(tok))
+    except Exception as e:
+        errores_semanticos.append(f"[Error Léxico Crítico] {e}")
+
+
+    # 3. Análisis Sintáctico y Semántico
+    # Reiniciar el lexer para el parser
+    lexer.input(codigo_fuente) 
+    if not errores_semanticos: # Solo intentar parsear si el lexer no falló
+        try:
+            # El parser de YACC llamará a tus reglas p_...
+            # y estas llenarán la lista `errores_semanticos` si algo sale mal.
+            parser.parse(codigo_fuente, lexer=lexer)
+        except Exception as e:
+            # Capturar errores inesperados del propio parser
+            errores_semanticos.append(f"[Error Crítico del Parser] {e}")
+
+    # 4. Devolver un diccionario con todos los resultados
+    return {
+        "tokens": tokens_lexicos,
+        "errors": errores_semanticos[:] # Devolvemos una copia de los errores
+    }
+
