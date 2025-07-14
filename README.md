@@ -3,7 +3,8 @@ Este proyecto utiliza Python 3 y las siguientes librerías:
 
 -flask
 -ply
-Guía para desplegar el proyecto
+
+Guía para desplegar el proyecto.
 1. Clona el repositorio o descarga el código fuente.
 
 2. Instala las dependencias ejecutando:
