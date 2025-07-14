@@ -1,6 +1,7 @@
 import ply.lex as lex,  datetime
 
 reserved = {
+    'import': 'IMPORT',
     'if': 'IF',
     'else': 'ELSE',
     'switch': 'SWITCH',
@@ -84,7 +85,10 @@ reserved = {
     'fixed': 'FIXED',
     'extern': 'EXTERN',
     'operator': 'OPERATOR',
-    'Dictionary': 'DICTIONARY'#lacedeno11
+    'Dictionary': 'DICTIONARY',#lacedeno11
+    'List': 'LISTA',
+    'Console' : 'CONSOLE',
+    'WriteLine' : 'WRITELINE'
 }
 
 
@@ -97,7 +101,6 @@ tokens = (
     'DLLAVE',
     'ICORCH',
     'DCORCH',
-    'LISTA',
     'ID_INVALIDO',
     'GENERICO_INVALIDO',
     'INT_LITERAL', #Tokens Ariel
@@ -119,9 +122,8 @@ tokens = (
     # Operador Lambda
     'FLECHALAMBDA',
     # Otros símbolos
-    'PUNTO', 'COMA',
+    'PUNTO', 'COMA', 'NEWLINE', 'ARROBA','FORMAT'
     #lacedeno11  fin
-    'CONSOLE', "WRITELINE"
 
 ) + tuple(reserved.values())
 
@@ -134,15 +136,12 @@ t_ILLAVE = r'\{'
 t_DLLAVE = r'\}'
 t_ICORCH = r'\['
 t_DCORCH = r'\]'
+t_ARROBA = r'@'
+t_FORMAT = r'\$'
 
 def t_ARRAY_DECLARATION(t):
     r'\b(?:int|float|bool|string|char)\[\]\s+[_a-zA-Z][_a-zA-Z0-9]*'
     return t
-
-def t_LISTA(t):
-    r'List<[a-zA-Z]+>\s[_a-zA-Z][_a-zA-Z0-9]*'
-    return t
-    
 
     
 def t_ID_INVALIDO(t):
@@ -155,7 +154,7 @@ def t_IDENTIFICADOR(t):
     t.type = reserved.get(t.value,'IDENTIFICADOR')
     return t
 
-def t_newline(t):
+def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
@@ -212,12 +211,13 @@ def t_COMMENT_SINGLE(t):
 #FIN CORRECCIÓN 1
 
 #Inicio Ariel Villacrés
-def t_INT_LITERAL(t):
-    r'\b\d+\b'
+def t_FLOAT_LITERAL(t):
+    r'\d+\.\d+[fF]|\d+\.[fF]|\.\d+[fF]'
     return t
 
-def t_FLOAT_LITERAL(t):
-    r'\b\d+\.\d+f\b'
+def t_INT_LITERAL(t):
+    r'\d+'
+    t.value = int(t.value)
     return t
 
 def t_CHAR_LITERAL(t):
