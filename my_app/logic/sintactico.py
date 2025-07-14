@@ -27,7 +27,8 @@ start = 'programa'
 
 semantic_context = {
     'dentro_de_bucle': 0,
-    'funcion_actual': None 
+    'funcion_actual': None,
+    'clase_actual': None 
 }
 
 errores_semanticos = []
