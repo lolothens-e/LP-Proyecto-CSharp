@@ -29,6 +29,8 @@ def registrar_error_semantico(mensaje, linea):
         errores_semanticos.append(error)
 
 # --- FUNCIÓN PARA OBTENER TIPOS DE EXPRESIONES ---
+import re
+
 def get_expression_type(node, lineno):
     if node is None: return 'desconocido'
     if isinstance(node, int): return 'int'
@@ -47,30 +49,31 @@ def get_expression_type(node, lineno):
         op = node[0]
         if op == 'nuevo_diccionario' or op == 'nueva_lista':
             return node[1]
-
-        # --- INICIO DE LA CORRECCIÓN ---
+        if op == 'nuevo_array':
+            # node[1] es el string de creación, ej: 'new string[5]'
+            match = re.match(r'new\s+(int|float|bool|string|char)', node[1])
+            if match:
+                base_type = match.group(1)
+                return f"array-{base_type}"
+            return 'desconocido_array_creacion'
+        if op == 'array_llaves':
+            if node[1]:
+                first_element_type = get_expression_type(node[1][0], lineno)
+                return f"array-{first_element_type}"
+            return 'array-empty'
         if op in ('+', '-', '*', '/', '%'):
             tipo1 = get_expression_type(node[1], lineno)
             tipo2 = get_expression_type(node[2], lineno)
-            
-            # Definimos qué tipos son válidos para la aritmética
             tipos_numericos = ('int', 'float')
-            
-            # Verificamos si AMBOS tipos son numéricos
             if tipo1 not in tipos_numericos or tipo2 not in tipos_numericos:
                 registrar_error_semantico(f"Operación aritmética inválida entre los tipos '{tipo1}' y '{tipo2}'.", lineno)
                 return 'desconocido'
-            
-            # Si ambos son válidos, determinamos el tipo resultante
             if 'float' in (tipo1, tipo2):
                 return 'float'
             else:
                 return 'int'
-        # --- FIN DE LA CORRECCIÓN ---
-            
         if op in ('<', '>', '<=', '>=', '==', '!=', '&&', '||', '!', 'NOT'):
             return 'bool'
-            
     return 'desconocido'
 
 # --- INICIO DE LA GRAMÁTICA (YACC) ---
@@ -114,21 +117,29 @@ def p_sentencia(p):
 def p_declaracion(p):
     '''
     declaracion : tipo_dato IDENTIFICADOR ASIGNAR expresion
+                | tipo_array IDENTIFICADOR ASIGNAR expresion_array
                 | IDENTIFICADOR ASIGNAR expresion
     '''
-    # Caso: int x = 5;  o  Dictionary<string,int> d = new ...;
     if len(p) == 5:
         tipo_declarado = p[1]
         nombre = p[2]
         valor = p[4]
-        
+
         if nombre in symbol_table:
             registrar_error_semantico(f"La variable '{nombre}' ya fue declarada.", p.lineno(2))
         else:
             tipo_valor_real = get_expression_type(valor, p.lineno(3))
-            if tipo_declarado != tipo_valor_real and tipo_valor_real != 'desconocido':
+            # Manejo especial para arrays
+            if isinstance(tipo_declarado, str) and tipo_declarado.endswith('[]') and tipo_valor_real.startswith('array-'):
+                base_tipo_declarado = tipo_declarado.replace('[]', '').strip()
+                base_tipo_valor_real = tipo_valor_real.split('-')[-1].strip()
+                if base_tipo_declarado != base_tipo_valor_real:
+                    registrar_error_semantico(f"Tipo incompatible para array. Se esperaba array de '{base_tipo_declarado}' pero se asignó array de '{base_tipo_valor_real}'.", p.lineno(3))
+                symbol_table[nombre] = {'type': tipo_declarado}
+            elif tipo_declarado != tipo_valor_real and tipo_valor_real != 'desconocido':
                 registrar_error_semantico(f"Tipo incompatible. No se puede asignar '{tipo_valor_real}' a una variable de tipo '{tipo_declarado}'.", p.lineno(3))
-            symbol_table[nombre] = {'type': tipo_declarado}
+            else:
+                symbol_table[nombre] = {'type': tipo_declarado}
         p[0] = ('declaracion', tipo_declarado, nombre, valor)
     # Caso: x = 10;
     else:
@@ -207,6 +218,13 @@ def p_tipo_diccionario(p):
     'tipo_diccionario : DICTIONARY MENOR tipo_retorno COMA tipo_retorno MAYOR'
     p[0] = f"Dictionary<{p[3]},{p[5]}>"
 
+# --- REGLA PARA TIPO ARRAY ---
+def p_tipo_array(p):
+    'tipo_array : ARRAY_TYPE'
+    p[0] = p[1]
+
+
+
 # --- REGLAS PARA EXPRESIONES (Creación de colecciones, operadores, etc.) ---
 def p_expresion(p):
     '''
@@ -216,6 +234,7 @@ def p_expresion(p):
               | IDENTIFICADOR
               | expresion_lista
               | expresion_diccionario
+              | expresion_array
     '''
     p[0] = p[1]
 
@@ -271,6 +290,26 @@ def p_expresion_lista(p):
 def p_expresion_diccionario(p):
     'expresion_diccionario : NEW tipo_diccionario IPAREN DPAREN'
     p[0] = ('nuevo_diccionario', p[2])
+
+def p_expresion_array(p):
+    '''
+    expresion_array : ARRAY_CREATION
+                    | ILLAVE lista_elementos_array DLLAVE
+    '''
+    if len(p) == 2:
+        p[0] = ('nuevo_array', p[1])
+    else:
+        p[0] = ('array_llaves', p[2])
+
+def p_lista_elementos_array(p):
+    '''
+    lista_elementos_array : expresion COMA lista_elementos_array
+                        | expresion
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
 
 # --- REGLAS PARA ESTRUCTURAS DE CONTROL ---
 

@@ -27,7 +27,7 @@ public class TestCompleto
     // Método principal de ejecución
     public static void Main(string[] args)
     {
-        Console.WriteLine("Iniciando prueba...");
+        f
         TestCompleto test = new TestCompleto();
         test.EjecutarCiclos(10);
     }

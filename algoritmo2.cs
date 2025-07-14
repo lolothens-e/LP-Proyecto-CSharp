@@ -8,7 +8,7 @@ class TestPrimitivosYArrays
         // Primitivos
         int edad = 30;
         float altura = 1.75f;
-        double peso = 72.5;
+
         bool esEstudiante = true;
         char inicial = 'A';
         string nombre = "Ariel";

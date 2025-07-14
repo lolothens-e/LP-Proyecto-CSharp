@@ -108,7 +108,7 @@ tokens = (
     'CHAR_LITERAL',
     'STRING_LITERAL',
     'BOOL_LITERAL',
-    'ARRAY_DECLARATION',
+    'ARRAY_TYPE',
     'ARRAY_CREATION', #Fin tokens Ariel
     #lacedeno11  inicio
     # Operadores Aritméticos
@@ -139,8 +139,8 @@ t_DCORCH = r'\]'
 t_ARROBA = r'@'
 t_FORMAT = r'\$'
 
-def t_ARRAY_DECLARATION(t):
-    r'\b(?:int|float|bool|string|char)\[\]\s+[_a-zA-Z][_a-zA-Z0-9]*'
+def t_ARRAY_TYPE(t):
+    r'\b(?:int|float|bool|string|char)\s*\[\s*\]'
     return t
 
     
@@ -212,7 +212,8 @@ def t_COMMENT_SINGLE(t):
 
 #Inicio Ariel Villacrés
 def t_FLOAT_LITERAL(t):
-    r'\d+\.\d+[fF]|\d+\.[fF]|\.\d+[fF]'
+    r'\d+\.\d+f?'
+    t.value = float(t.value.replace('f', '')) 
     return t
 
 def t_INT_LITERAL(t):
